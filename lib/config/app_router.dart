@@ -12,12 +12,8 @@ class AppRouter {
         return HomeScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
-      case MatchesScreen.routeName:
-        return MatchesScreen.route();
       case UsersScreen.routeName:
         return UsersScreen.route(user: settings.arguments as User);
-      case ChatScreen.routeName:
-        return ChatScreen.route(userMatch: settings.arguments as UserMatch);
       case OnboardingScreen.routeName:
         return OnboardingScreen.route();
       default:
