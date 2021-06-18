@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="110px" viewBox="0 0 100 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Logo</title>
+    <defs>
+        <linearGradient x1="91.5657439%" y1="0%" x2="8.76807185%" y2="99.5984484%" id="linearGradient-1">
+            <stop stop-color="#2B2E4A" stop-opacity="0.997049825" offset="0%"></stop>
+            <stop stop-color="#2B2E4A" offset="28.7259615%"></stop>
+            <stop stop-color="#E84545" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Dating-App---High-Fidelity-Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Splash-Screen" transform="translate(-145.000000, -266.000000)" fill="url(#linearGradient-1)">
+            <g id="AppBar-Copy-2" transform="translate(78.000000, 266.000000)">
+                <g id="Logo" transform="translate(67.000000, -0.000000)">
+                    <path d="M73.1182796,0 C79.4706218,0 85.6337641,0.810060753 91.5100416,2.3325172 C96.9302432,12.5442435 100,24.1932016 100,36.5591398 C100,76.9412505 67.2638312,109.677419 26.8817204,109.677419 C20.5293782,109.677419 55.4202016,65.050436 50,54.8387097 C44.5797984,44.6269834 0,85.4842178 0,73.1182796 C0,32.7361688 32.7361688,0 73.1182796,0 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
