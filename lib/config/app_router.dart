@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_dating_app/models/models.dart';
 import 'package:flutter_dating_app/screens/screens.dart';
 
+import '../screens/screens.dart';
+
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     print('The Route is: ${settings.name}');
@@ -16,6 +18,8 @@ class AppRouter {
         return UsersScreen.route(user: settings.arguments as User);
       case OnboardingScreen.routeName:
         return OnboardingScreen.route();
+      case MatchesScreen.routeName:
+        return MatchesScreen.route();
       default:
         return _errorRoute();
     }
