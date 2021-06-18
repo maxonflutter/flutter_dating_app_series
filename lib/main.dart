@@ -6,8 +6,6 @@ import 'package:flutter_dating_app/screens/screens.dart';
 
 import 'config/theme.dart';
 import 'models/models.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/screens.dart';
 import 'screens/screens.dart';
 
 void main() {
