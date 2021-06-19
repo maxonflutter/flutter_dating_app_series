@@ -5,7 +5,6 @@ import 'package:flutter_dating_app/screens/screens.dart';
 
 import '../screens/chat/chat_screen.dart';
 import '../screens/screens.dart';
-import '../screens/screens.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -24,6 +23,8 @@ class AppRouter {
         return MatchesScreen.route();
       case ChatScreen.routeName:
         return ChatScreen.route(userMatch: settings.arguments as UserMatch);
+      case ProfileScreen.routeName:
+        return ProfileScreen.route();
       default:
         return _errorRoute();
     }

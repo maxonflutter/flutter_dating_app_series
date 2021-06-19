@@ -4,11 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool hasActions;
+  final bool centerTitle;
 
   const CustomAppBar({
     Key? key,
     required this.title,
     this.hasActions = true,
+    this.centerTitle = false,
   }) : super(key: key);
 
   @override
@@ -16,16 +18,21 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      centerTitle: false,
+      centerTitle: centerTitle,
       automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Container(
-              child: SvgPicture.asset(
-                'assets/logo.svg',
-                height: 50,
+            child: InkWell(
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/');
+              },
+              child: Container(
+                child: SvgPicture.asset(
+                  'assets/logo.svg',
+                  height: 50,
+                ),
               ),
             ),
           ),
