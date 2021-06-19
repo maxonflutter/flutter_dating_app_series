@@ -21,10 +21,11 @@ class Message extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        receiverId,
         senderId,
+        receiverId,
         message,
         dateTime,
+        timeString,
       ];
 
   static List<Message> messages = [

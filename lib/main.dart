@@ -6,7 +6,7 @@ import 'package:flutter_dating_app/screens/screens.dart';
 
 import 'config/theme.dart';
 import 'models/models.dart';
-import 'screens/home/home_screen.dart';
+import 'screens/screens.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: theme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: HomeScreen.routeName,
+        initialRoute: MatchesScreen.routeName,
       ),
     );
   }

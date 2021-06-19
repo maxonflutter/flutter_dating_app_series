@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dating_app/models/models.dart';
+
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class ChatScreen extends StatelessWidget {
   static const String routeName = '/chat';
@@ -20,26 +22,22 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
+        elevation: 0,
         iconTheme: IconThemeData(
           color: Theme.of(context).primaryColor,
         ),
-        elevation: 0,
         title: Column(
           children: [
             CircleAvatar(
               radius: 15,
-              backgroundImage: NetworkImage(
-                userMatch.matchedUser.imageUrls[0],
-              ),
+              backgroundImage: NetworkImage(userMatch.matchedUser.imageUrls[0]),
             ),
             Text(
               userMatch.matchedUser.name,
               style: Theme.of(context).textTheme.headline4,
-            ),
-            SizedBox(height: 10),
+            )
           ],
         ),
-        actions: [IconButton(icon: Icon(Icons.more_vert), onPressed: () {})],
       ),
       body: Column(
         children: [
@@ -48,52 +46,49 @@ class ChatScreen extends StatelessWidget {
               child: userMatch.chat != null
                   ? Container(
                       child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: userMatch.chat![0].messages.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: userMatch
-                                        .chat![0].messages[index].senderId ==
-                                    1
-                                ? Align(
-                                    alignment: Alignment.topRight,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8.0)),
-                                        color:
-                                            Theme.of(context).backgroundColor,
-                                      ),
-                                      child: Text(
-                                        userMatch
-                                            .chat![0].messages[index].message,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6,
-                                      ),
-                                    ),
-                                  )
-                                : Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 15,
-                                          backgroundImage: NetworkImage(
-                                            userMatch.matchedUser.imageUrls[0],
-                                          ),
+                          shrinkWrap: true,
+                          itemCount: userMatch.chat![0].messages.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: userMatch
+                                          .chat![0].messages[index].senderId ==
+                                      1
+                                  ? Align(
+                                      alignment: Alignment.topRight,
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0),
+                                            ),
+                                            color: Theme.of(context)
+                                                .backgroundColor),
+                                        child: Text(
+                                          userMatch
+                                              .chat![0].messages[index].message,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
                                         ),
-                                        SizedBox(width: 10),
-                                        ConstrainedBox(
-                                          constraints:
-                                              BoxConstraints(maxWidth: 250),
-                                          child: Container(
+                                      ),
+                                    )
+                                  : Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Row(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 15,
+                                            backgroundImage: NetworkImage(
+                                                userMatch
+                                                    .matchedUser.imageUrls[0]),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Container(
                                             padding: const EdgeInsets.all(8.0),
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
-                                                  Radius.circular(8.0)),
+                                                Radius.circular(8.0),
+                                              ),
                                               color: Theme.of(context)
                                                   .primaryColor,
                                             ),
@@ -104,61 +99,48 @@ class ChatScreen extends StatelessWidget {
                                                   .textTheme
                                                   .headline6!
                                                   .copyWith(
-                                                      color: Colors.white),
-                                              softWrap: true,
+                                                    color: Colors.white,
+                                                  ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                            subtitle:
-                                userMatch.chat![0].messages[index].senderId == 1
-                                    ? Align(
-                                        alignment: Alignment.topRight,
-                                        child: Text(
-                                          userMatch.chat![0].messages[index]
-                                              .timeString,
-                                        ),
-                                      )
-                                    : Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          userMatch.chat![0].messages[index]
-                                              .timeString,
-                                        ),
+                                        ],
                                       ),
-                          );
-                        },
-                      ),
+                                    ),
+                            );
+                          }),
                     )
                   : SizedBox(),
             ),
           ),
           Container(
+            padding: const EdgeInsets.all(20.0),
             height: 100,
-            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                IconButton(
-                    icon: Icon(Icons.send_outlined,
-                        color: Theme.of(context).primaryColor),
-                    onPressed: () {}),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.send_outlined),
+                    onPressed: () {},
+                    color: Colors.white,
+                  ),
+                ),
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: 'Type here ...',
-                      contentPadding: const EdgeInsets.only(
-                          left: 20.0, bottom: 5.0, top: 5.0),
+                      hintText: 'Type here...',
+                      contentPadding:
+                          const EdgeInsets.only(left: 20, bottom: 5, top: 5),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10),
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),

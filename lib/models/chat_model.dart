@@ -1,25 +1,28 @@
 import 'package:equatable/equatable.dart';
 
-import 'models.dart';
+import 'message_model.dart';
 
 class Chat extends Equatable {
   final int id;
   final int userId;
-  final int otherUserId;
+  final int matchedUserId;
   final List<Message> messages;
 
   Chat({
     required this.id,
     required this.userId,
-    required this.otherUserId,
+    required this.matchedUserId,
     required this.messages,
   });
+
+  @override
+  List<Object?> get props => [id, userId, matchedUserId, messages];
 
   static List<Chat> chats = [
     Chat(
       id: 1,
       userId: 1,
-      otherUserId: 2,
+      matchedUserId: 2,
       messages: Message.messages
           .where((message) =>
               (message.senderId == 1 && message.receiverId == 2) ||
@@ -29,7 +32,7 @@ class Chat extends Equatable {
     Chat(
       id: 2,
       userId: 1,
-      otherUserId: 3,
+      matchedUserId: 3,
       messages: Message.messages
           .where((message) =>
               (message.senderId == 1 && message.receiverId == 3) ||
@@ -39,7 +42,7 @@ class Chat extends Equatable {
     Chat(
       id: 3,
       userId: 1,
-      otherUserId: 5,
+      matchedUserId: 5,
       messages: Message.messages
           .where((message) =>
               (message.senderId == 1 && message.receiverId == 5) ||
@@ -49,7 +52,7 @@ class Chat extends Equatable {
     Chat(
       id: 4,
       userId: 1,
-      otherUserId: 6,
+      matchedUserId: 6,
       messages: Message.messages
           .where((message) =>
               (message.senderId == 1 && message.receiverId == 6) ||
@@ -57,12 +60,4 @@ class Chat extends Equatable {
           .toList(),
     ),
   ];
-
-  @override
-  List<Object?> get props => [
-        id,
-        userId,
-        otherUserId,
-        messages,
-      ];
 }
