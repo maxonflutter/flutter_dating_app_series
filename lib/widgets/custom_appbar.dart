@@ -22,10 +22,15 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Container(
-              child: SvgPicture.asset(
-                'assets/logo.svg',
-                height: 50,
+            child: InkWell(
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/');
+              },
+              child: Container(
+                child: SvgPicture.asset(
+                  'assets/logo.svg',
+                  height: 50,
+                ),
               ),
             ),
           ),
