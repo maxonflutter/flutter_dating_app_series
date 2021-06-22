@@ -1,16 +1,5 @@
-# flutter_dating_app
+# Zero To Unicorn - Flutter Dating App
 
-A new Flutter project.
+The Dating App Series aims to teach you how to build and deploy a Dating App from Scratch using Flutter. The series will comprehensively take you through the app's development cycle. You'll learn how to develop and deploy a Dating App from Scratch using Flutter, Firebase & the BloC Pattern if you watch all the series. Arrow, our Dating App, will be launched and live on iOS and Android devices by the end of the series.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If you want to see video tutorials about how to implement the dating app, please go to: https://www.youtube.com/playlist?list=PLCAZyR6zw2pyyjdifS_AFJf6HA4Ud8R4_
