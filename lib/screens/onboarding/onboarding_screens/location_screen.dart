@@ -25,7 +25,7 @@ class Location extends StatelessWidget {
               CustomTextHeader(text: 'Where Are You?'),
               CustomTextField(
                 hint: 'ENTER YOUR LOCATION',
-                controller: controller,
+                // controller: controller,
               ),
             ],
           ),
