@@ -12,6 +12,7 @@ class Location extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
       child: Column(
@@ -22,7 +23,10 @@ class Location extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextHeader(text: 'Where Are You?'),
-              CustomTextField(hint: 'ENTER YOUR LOCATION'),
+              CustomTextField(
+                hint: 'ENTER YOUR LOCATION',
+                controller: controller,
+              ),
             ],
           ),
           Column(

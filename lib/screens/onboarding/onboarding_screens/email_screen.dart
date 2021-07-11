@@ -12,16 +12,28 @@ class Email extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextHeader(text: 'What\'s Your Email Address?'),
-              CustomTextField(hint: 'ENTER YOUR EMAIL'),
+              CustomTextField(
+                hint: 'ENTER YOUR EMAIL',
+                controller: emailController,
+              ),
+              SizedBox(height: 100),
+              CustomTextHeader(text: 'Choose a Password'),
+              CustomTextField(
+                hint: 'ENTER YOUR PASSWORD',
+                controller: passwordController,
+              ),
             ],
           ),
           Column(
@@ -33,7 +45,12 @@ class Email extends StatelessWidget {
                 unselectedColor: Theme.of(context).backgroundColor,
               ),
               SizedBox(height: 10),
-              CustomButton(tabController: tabController, text: 'NEXT STEP'),
+              CustomButton(
+                tabController: tabController,
+                text: 'NEXT STEP',
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
             ],
           ),
         ],
