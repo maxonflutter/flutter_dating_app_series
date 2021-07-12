@@ -30,7 +30,7 @@ class Demo extends StatelessWidget {
               CustomTextHeader(text: 'What\'s Your Age?'),
               CustomTextField(
                 hint: 'ENTER YOUR AGE',
-                controller: controller,
+                // controller: controller,
               ),
             ],
           ),

@@ -25,7 +25,7 @@ class Bio extends StatelessWidget {
               CustomTextHeader(text: 'Describe Yourself'),
               CustomTextField(
                 hint: 'ENTER YOUR BIO',
-                controller: controller,
+                // controller: controller,
               ),
               SizedBox(height: 100),
               CustomTextHeader(text: 'What Do You Like?'),
