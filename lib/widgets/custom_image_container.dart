@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dating_app/repositories/database/database_repository.dart';
+import 'package:flutter_dating_app/repositories/storage/storage_repository.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CustomImageContainer extends StatelessWidget {
   const CustomImageContainer({
@@ -40,7 +43,21 @@ class CustomImageContainer extends StatelessWidget {
               Icons.add_circle,
               color: Theme.of(context).accentColor,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              ImagePicker _picker = ImagePicker();
+              final XFile? _image =
+                  await _picker.pickImage(source: ImageSource.gallery);
+
+              if (_image == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('No image was selected.')));
+              }
+
+              if (_image != null) {
+                print('Uploading ...');
+                StorageRepository().uploadImage(_image);
+              }
+            },
           ),
         ),
       ),
