@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dating_app/repositories/database/database_repository.dart';
 import 'package:flutter_dating_app/repositories/storage/storage_repository.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CustomImageContainer extends StatelessWidget {
   const CustomImageContainer({
     Key? key,
+    this.imageUrl,
   }) : super(key: key);
+
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -36,30 +38,35 @@ class CustomImageContainer extends StatelessWidget {
             ),
           ),
         ),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: IconButton(
-            icon: Icon(
-              Icons.add_circle,
-              color: Theme.of(context).accentColor,
-            ),
-            onPressed: () async {
-              ImagePicker _picker = ImagePicker();
-              final XFile? _image =
-                  await _picker.pickImage(source: ImageSource.gallery);
+        child: (imageUrl == null)
+            ? Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.add_circle,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  onPressed: () async {
+                    ImagePicker _picker = ImagePicker();
+                    final XFile? _image =
+                        await _picker.pickImage(source: ImageSource.gallery);
 
-              if (_image == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('No image was selected.')));
-              }
+                    if (_image == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('No image was selected.')));
+                    }
 
-              if (_image != null) {
-                print('Uploading ...');
-                StorageRepository().uploadImage(_image);
-              }
-            },
-          ),
-        ),
+                    if (_image != null) {
+                      print('Uploading ...');
+                      StorageRepository().uploadImage(_image);
+                    }
+                  },
+                ),
+              )
+            : Image.network(
+                imageUrl!,
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
