@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/cubits/signup/signup_cubit.dart';
-import 'package:flutter_dating_app/repositories/auth/auth_repository.dart';
-import 'package:flutter_dating_app/widgets/widgets.dart';
+import '/cubits/cubits.dart';
+import '/repositories/repositories.dart';
+import '/widgets/widgets.dart';
 
 import 'onboarding_screens/screens.dart';
 
