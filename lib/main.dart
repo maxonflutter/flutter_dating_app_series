@@ -1,13 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/blocs/auth/auth_bloc.dart';
-import 'package:flutter_dating_app/blocs/images/images_bloc.dart';
-import 'package:flutter_dating_app/blocs/swipe/swipe_bloc.dart';
-import 'package:flutter_dating_app/config/app_router.dart';
-import 'package:flutter_dating_app/repositories/auth/auth_repository.dart';
-import 'package:flutter_dating_app/repositories/database/database_repository.dart';
-import 'package:flutter_dating_app/screens/screens.dart';
+import '/blocs/blocs.dart';
+import '/config/app_router.dart';
+import '/repositories/repositories.dart';
+import '/screens/screens.dart';
 
 import 'config/theme.dart';
 import 'models/models.dart';

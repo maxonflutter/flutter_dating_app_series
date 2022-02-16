@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_dating_app/models/models.dart';
@@ -8,47 +6,47 @@ part 'swipe_event.dart';
 part 'swipe_state.dart';
 
 class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
-  SwipeBloc() : super(SwipeLoading());
-
-  @override
-  Stream<SwipeState> mapEventToState(
-    SwipeEvent event,
-  ) async* {
-    if (event is LoadUsersEvent) {
-      yield* _mapLoadUsersToState(event);
-    }
-    if (event is SwipeLeftEvent) {
-      yield* _mapSwipeLeftEventToState(event, state);
-    }
-    if (event is SwipeRightEvent) {
-      yield* _mapSwipeRightEventToState(event, state);
-    }
+  SwipeBloc() : super(SwipeLoading()) {
+    on<LoadUsersEvent>(_onLoadUsersEvent);
+    on<SwipeLeftEvent>(_onSwipeLeftEvent);
+    on<SwipeRightEvent>(_onSwipeRightEvent);
   }
 
-  Stream<SwipeState> _mapLoadUsersToState(
+  void _onLoadUsersEvent(
     LoadUsersEvent event,
-  ) async* {
-    yield SwipeLoaded(users: event.users);
+    Emitter<SwipeState> emit,
+  ) {
+    emit(SwipeLoaded(users: event.users));
   }
 
-  Stream<SwipeState> _mapSwipeLeftEventToState(
+  void _onSwipeLeftEvent(
     SwipeLeftEvent event,
-    SwipeState state,
-  ) async* {
+    Emitter<SwipeState> emit,
+  ) {
     if (state is SwipeLoaded) {
+      final state = this.state as SwipeLoaded;
       try {
-        yield SwipeLoaded(users: List.from(state.users)..remove(event.user));
+        emit(
+          SwipeLoaded(
+            users: List.from(state.users)..remove(event.user),
+          ),
+        );
       } catch (_) {}
     }
   }
 
-  Stream<SwipeState> _mapSwipeRightEventToState(
+  void _onSwipeRightEvent(
     SwipeRightEvent event,
-    SwipeState state,
-  ) async* {
+    Emitter<SwipeState> emit,
+  ) {
     if (state is SwipeLoaded) {
+      final state = this.state as SwipeLoaded;
       try {
-        yield SwipeLoaded(users: List.from(state.users)..remove(event.user));
+        emit(
+          SwipeLoaded(
+            users: List.from(state.users)..remove(event.user),
+          ),
+        );
       } catch (_) {}
     }
   }
