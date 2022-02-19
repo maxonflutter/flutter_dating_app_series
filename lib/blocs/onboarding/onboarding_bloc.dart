@@ -36,6 +36,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       jobTitle: '',
       interests: [],
       bio: '',
+      location: '',
     );
     String documentId = await _databaseRepository.createUser(user);
     emit(OnboardingLoaded(user: user.copyWith(id: documentId)));

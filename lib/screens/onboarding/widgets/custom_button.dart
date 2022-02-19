@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_dating_app/cubits/signup/signup_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +29,12 @@ class CustomButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         onPressed: () {
-          tabController.animateTo(tabController.index + 1);
+          if (tabController.index <= 4) {
+            tabController.animateTo(tabController.index + 1);
+          } else {
+            Navigator.pushNamed(context, '/');
+          }
+
           if (tabController.index == 2) {
             context.read<SignupCubit>().signUpWithCredentials();
           }

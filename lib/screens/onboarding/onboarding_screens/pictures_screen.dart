@@ -16,67 +16,62 @@ class Pictures extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingBloc, OnboardingState>(
       builder: (context, state) {
-        var images = (state as OnboardingLoaded).user.imageUrls;
-        var imageCount = images.length;
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextHeader(text: 'Add 2 or More Pictures'),
-                  SizedBox(height: 20),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          (imageCount > 0)
-                              ? CustomImageContainer(imageUrl: images[0])
-                              : CustomImageContainer(),
-                          (imageCount > 1)
-                              ? CustomImageContainer(imageUrl: images[1])
-                              : CustomImageContainer(),
-                          (imageCount > 2)
-                              ? CustomImageContainer(imageUrl: images[2])
-                              : CustomImageContainer(),
-                        ],
+        if (state is OnboardingLoading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is OnboardingLoaded) {
+          var images = state.user.imageUrls;
+          var imageCount = images.length;
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextHeader(text: 'Add 2 or More Pictures'),
+                    SizedBox(height: 20),
+                    SizedBox(
+                      height: 350,
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 0.66,
+                        ),
+                        itemCount: 6,
+                        itemBuilder: (BuildContext context, int index) {
+                          return (imageCount > index)
+                              ? CustomImageContainer(imageUrl: images[index])
+                              : CustomImageContainer();
+                        },
                       ),
-                      Row(
-                        children: [
-                          (imageCount > 3)
-                              ? CustomImageContainer(imageUrl: images[3])
-                              : CustomImageContainer(),
-                          (imageCount > 4)
-                              ? CustomImageContainer(imageUrl: images[4])
-                              : CustomImageContainer(),
-                          (imageCount > 5)
-                              ? CustomImageContainer(imageUrl: images[5])
-                              : CustomImageContainer(),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  StepProgressIndicator(
-                    totalSteps: 6,
-                    currentStep: 4,
-                    selectedColor: Theme.of(context).primaryColor,
-                    unselectedColor: Theme.of(context).backgroundColor,
-                  ),
-                  SizedBox(height: 10),
-                  CustomButton(tabController: tabController, text: 'NEXT STEP'),
-                ],
-              ),
-            ],
-          ),
-        );
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    StepProgressIndicator(
+                      totalSteps: 6,
+                      currentStep: 4,
+                      selectedColor: Theme.of(context).primaryColor,
+                      unselectedColor: Theme.of(context).backgroundColor,
+                    ),
+                    SizedBox(height: 10),
+                    CustomButton(
+                        tabController: tabController, text: 'NEXT STEP'),
+                  ],
+                ),
+              ],
+            ),
+          );
+        } else {
+          return Text('Something went wrong.');
+        }
       },
     );
   }

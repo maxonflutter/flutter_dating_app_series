@@ -12,6 +12,7 @@ class User extends Equatable {
   final List<dynamic> interests;
   final String bio;
   final String jobTitle;
+  final String location;
 
   const User({
     this.id,
@@ -22,6 +23,7 @@ class User extends Equatable {
     required this.interests,
     required this.bio,
     required this.jobTitle,
+    required this.location,
   });
 
   @override
@@ -34,6 +36,7 @@ class User extends Equatable {
         interests,
         bio,
         jobTitle,
+        location,
       ];
 
   static User fromSnapshot(DocumentSnapshot snap) {
@@ -46,6 +49,7 @@ class User extends Equatable {
       interests: snap['interests'],
       bio: snap['bio'],
       jobTitle: snap['jobTitle'],
+      location: snap['location'],
     );
     return user;
   }
@@ -59,6 +63,7 @@ class User extends Equatable {
       'interests': interests,
       'bio': bio,
       'jobTitle': jobTitle,
+      'location': location,
     };
   }
 
@@ -71,6 +76,7 @@ class User extends Equatable {
     List<dynamic>? interests,
     String? bio,
     String? jobTitle,
+    String? location,
   }) {
     return User(
       id: id ?? this.id,
@@ -81,6 +87,7 @@ class User extends Equatable {
       interests: interests ?? this.interests,
       bio: bio ?? this.bio,
       jobTitle: jobTitle ?? this.jobTitle,
+      location: location ?? this.location,
     );
   }
 
@@ -101,6 +108,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '2',
@@ -118,6 +126,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '3',
@@ -135,6 +144,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '4',
@@ -152,6 +162,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '5',
@@ -169,6 +180,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '6',
@@ -186,6 +198,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '7',
@@ -203,6 +216,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '8',
@@ -220,6 +234,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '9',
@@ -237,6 +252,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '10',
@@ -254,6 +270,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '11',
@@ -271,6 +288,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     User(
       id: '12',
@@ -288,6 +306,7 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
   ];
 }
