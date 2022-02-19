@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/cubits/signup/signup_cubit.dart';
-import 'package:flutter_dating_app/screens/onboarding/widgets/widgets.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import '/cubits/cubits.dart';
+import '/screens/onboarding/widgets/widgets.dart';
 
 class Email extends StatelessWidget {
   final TabController tabController;

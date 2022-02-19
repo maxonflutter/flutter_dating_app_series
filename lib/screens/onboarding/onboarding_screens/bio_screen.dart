@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dating_app/screens/onboarding/widgets/widgets.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import '/screens/onboarding/widgets/widgets.dart';
 
 class Bio extends StatelessWidget {
   final TabController tabController;

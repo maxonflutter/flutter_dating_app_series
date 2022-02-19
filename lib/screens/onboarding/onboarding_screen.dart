@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '/cubits/cubits.dart';
+
 import '/repositories/repositories.dart';
+import '/blocs/blocs.dart';
+import '/cubits/cubits.dart';
 import '/widgets/widgets.dart';
 
 import 'onboarding_screens/screens.dart';
@@ -12,9 +14,21 @@ class OnboardingScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
-      builder: (context) => BlocProvider<SignupCubit>(
-        create: (_) =>
-            SignupCubit(authRepository: context.read<AuthRepository>()),
+      builder: (context) => MultiBlocProvider(
+        providers: [
+          BlocProvider<SignupCubit>(
+            create: (_) =>
+                SignupCubit(authRepository: context.read<AuthRepository>()),
+          ),
+          BlocProvider<OnboardingBloc>(
+            create: (_) => OnboardingBloc(
+              databaseRepository: DatabaseRepository(),
+              storageRepository: StorageRepository(),
+            )..add(
+                StartOnboarding(),
+              ),
+          ),
+        ],
         child: OnboardingScreen(),
       ),
     );

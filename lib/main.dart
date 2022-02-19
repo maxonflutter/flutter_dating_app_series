@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '/blocs/blocs.dart';
-import '/config/app_router.dart';
-import '/repositories/repositories.dart';
-import '/screens/screens.dart';
 
-import 'config/theme.dart';
-import 'models/models.dart';
+import 'blocs/blocs.dart';
+import 'repositories/repositories.dart';
 import 'screens/screens.dart';
+import 'config/theme.dart';
+import 'config/app_router.dart';
+import 'models/models.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,13 +37,6 @@ class MyApp extends StatelessWidget {
                 LoadUsersEvent(
                   users: User.users.where((user) => user.id != 1).toList(),
                 ),
-              ),
-          ),
-          BlocProvider(
-            create: (_) => ImagesBloc(
-              databaseRepository: DatabaseRepository(),
-            )..add(
-                LoadImages(),
               ),
           ),
         ],

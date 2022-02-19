@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dating_app/repositories/storage/storage_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dating_app/blocs/blocs.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CustomImageContainer extends StatelessWidget {
@@ -19,23 +20,9 @@ class CustomImageContainer extends StatelessWidget {
         width: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          border: Border(
-            bottom: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
-            top: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
-            left: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
-            right: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).primaryColor,
           ),
         ),
         child: (imageUrl == null)
@@ -58,7 +45,9 @@ class CustomImageContainer extends StatelessWidget {
 
                     if (_image != null) {
                       print('Uploading ...');
-                      StorageRepository().uploadImage(_image);
+                      BlocProvider.of<OnboardingBloc>(context).add(
+                        UpdateUserImages(image: _image),
+                      );
                     }
                   },
                 ),
