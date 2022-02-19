@@ -37,6 +37,10 @@ class CustomButton extends StatelessWidget {
 
           if (tabController.index == 2) {
             context.read<SignupCubit>().signUpWithCredentials();
+            print('Print: ${context.read<SignupCubit>().state}');
+          }
+          if (tabController.index == 3) {
+            print('Print: ${context.read<SignupCubit>().state}');
           }
         },
         style: ElevatedButton.styleFrom(

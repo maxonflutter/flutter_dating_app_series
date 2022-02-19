@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/blocs.dart';
+import 'cubits/cubits.dart';
 import 'repositories/repositories.dart';
 import 'screens/screens.dart';
 import 'config/theme.dart';
@@ -21,18 +22,30 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (_) => AuthRepository(),
+          create: (context) => AuthRepository(),
         )
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => AuthBloc(
+            create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
             ),
           ),
+          BlocProvider<SignupCubit>(
+            create: (context) =>
+                SignupCubit(authRepository: context.read<AuthRepository>()),
+          ),
+          BlocProvider<OnboardingBloc>(
+            create: (context) => OnboardingBloc(
+              databaseRepository: DatabaseRepository(),
+              storageRepository: StorageRepository(),
+            )..add(
+                StartOnboarding(),
+              ),
+          ),
           BlocProvider(
-            create: (_) => SwipeBloc()
+            create: (context) => SwipeBloc()
               ..add(
                 LoadUsersEvent(
                   users: User.users.where((user) => user.id != 1).toList(),
@@ -45,7 +58,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: theme(),
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: OnboardingScreen.routeName,
+          initialRoute: SplashScreen.routeName,
         ),
       ),
     );
