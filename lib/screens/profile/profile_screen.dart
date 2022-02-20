@@ -56,7 +56,10 @@ class ProfileScreen extends StatelessWidget {
                           ],
                           image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: NetworkImage(state.user.imageUrls[0]),
+                            image: state.user.imageUrls.length > 0
+                                ? NetworkImage(state.user.imageUrls[0])
+                                : AssetImage('assets/placeholder-image.png')
+                                    as ImageProvider,
                           ),
                         ),
                       ),
@@ -105,36 +108,37 @@ class ProfileScreen extends StatelessWidget {
                               .copyWith(height: 1.5),
                         ),
                         TitleWithIcon(title: 'Pictures', icon: Icons.edit),
-                        SizedBox(
-                          height: 125,
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          height: state.user.imageUrls.length > 0 ? 125 : 0,
                           child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: state.user.imageUrls.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 5.0),
-                                  child: Container(
-                                    height: 125,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            state.user.imageUrls[index]),
-                                      ),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.user.imageUrls.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 5.0),
+                                child: Container(
+                                  height: 125,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(
+                                        color: Theme.of(context).primaryColor),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                          state.user.imageUrls[index]),
                                     ),
                                   ),
-                                );
-                              }),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                         TitleWithIcon(title: 'Location', icon: Icons.edit),
                         Text(
-                          'Singapore, 1 Suntec City',
+                          state.user.location,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
