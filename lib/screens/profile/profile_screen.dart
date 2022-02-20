@@ -133,7 +133,13 @@ class ProfileScreen extends StatelessWidget {
                       RepositoryProvider.of<AuthRepository>(context).signOut();
                     },
                     child: Center(
-                      child: Text('Sign Out'),
+                      child: Text(
+                        'Sign Out',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      ),
                     ),
                   ),
                 ],

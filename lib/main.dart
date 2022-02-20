@@ -40,9 +40,7 @@ class MyApp extends StatelessWidget {
             create: (context) => OnboardingBloc(
               databaseRepository: DatabaseRepository(),
               storageRepository: StorageRepository(),
-            )..add(
-                StartOnboarding(),
-              ),
+            ),
           ),
           BlocProvider(
             create: (context) => SwipeBloc()
