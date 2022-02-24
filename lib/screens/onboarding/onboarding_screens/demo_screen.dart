@@ -32,6 +32,19 @@ class Demo extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    CustomTextHeader(text: 'What\'s Your Name?'),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                      hint: 'ENTER YOUR NAME',
+                      onChanged: (value) {
+                        context.read<OnboardingBloc>().add(
+                              UpdateUser(
+                                user: state.user.copyWith(name: value),
+                              ),
+                            );
+                      },
+                    ),
+                    SizedBox(height: 50),
                     CustomTextHeader(text: 'What\'s Your Gender?'),
                     SizedBox(height: 20),
                     CustomCheckbox(
@@ -56,7 +69,7 @@ class Demo extends StatelessWidget {
                             );
                       },
                     ),
-                    SizedBox(height: 100),
+                    SizedBox(height: 50),
                     CustomTextHeader(text: 'What\'s Your Age?'),
                     CustomTextField(
                       hint: 'ENTER YOUR AGE',

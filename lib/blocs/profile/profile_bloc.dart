@@ -14,10 +14,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final DatabaseRepository _databaseRepository;
   StreamSubscription? _authSubscription;
 
-  ProfileBloc(
-      {required AuthBloc authBloc,
-      required DatabaseRepository databaseRepository})
-      : _authBloc = authBloc,
+  ProfileBloc({
+    required AuthBloc authBloc,
+    required DatabaseRepository databaseRepository,
+  })  : _authBloc = authBloc,
         _databaseRepository = databaseRepository,
         super(ProfileLoading()) {
     on<LoadProfile>(_onLoadProfile);

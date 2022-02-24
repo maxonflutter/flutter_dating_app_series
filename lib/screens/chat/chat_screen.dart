@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dating_app/repositories/repositories.dart';
 
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
@@ -117,6 +119,20 @@ class ChatScreen extends StatelessWidget {
             height: 100,
             child: Row(
               children: [
+                TextButton(
+                  onPressed: () {
+                    RepositoryProvider.of<AuthRepository>(context).signOut();
+                  },
+                  child: Center(
+                    child: Text(
+                      'Sign Out',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5!
+                          .copyWith(color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

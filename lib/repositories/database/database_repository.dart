@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 import '/repositories/repositories.dart';
 import '/models/models.dart';
@@ -16,17 +17,29 @@ class DatabaseRepository extends BaseDatabaseRepository {
         .map((snap) => User.fromSnapshot(snap));
   }
 
+
+  User getUserDoc(String userId) {
+    return _firebaseFirestore.collection('users').doc(userId).get().then((snap) => User.fromSnapshot(snap));
+  }
+
+
+  @override
+  Stream<List<User>> getUsers(String userId) {
+    User user = getUserDoc(userId);
+   
+      return _firebaseFirestore
+          .collection('users')
+          .where('gender', isNotEqualTo: user.gender)
+          .snapshots()
+          .map((snap) {
+        return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
+      });
+    });
+  }
+
   @override
   Future<void> createUser(User user) async {
     await _firebaseFirestore.collection('users').doc(user.id).set(user.toMap());
-
-    //   //   .add(user.toMap())
-    //   .then((value) {
-    // print('User added! ID: ${value}');
-    // return value.id;
-    // });
-
-    // return documentId;
   }
 
   @override
