@@ -19,7 +19,7 @@ class LoadUsers extends SwipeEvent {
 }
 
 class UpdateHome extends SwipeEvent {
-  final List<User> users;
+  final List<User>? users;
 
   UpdateHome({
     required this.users,

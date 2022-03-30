@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 import '/blocs/blocs.dart';
 import '/models/models.dart';
@@ -28,10 +27,8 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
     on<SwipeRight>(_onSwipeRight);
 
     _authSubscription = _authBloc.stream.listen((state) {
-      if (state.user is AuthUserChanged) {
-        if (state.user!.uid != null) {
-          add(LoadUsers(userId: state.user!.uid));
-        }
+      if (state.status == AuthStatus.authenticated) {
+        add(LoadUsers(userId: state.user!.uid));
       }
     });
   }
@@ -40,7 +37,8 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
     LoadUsers event,
     Emitter<SwipeState> emit,
   ) {
-    _databaseRepository.getUsers(event.userId).listen((users) {
+    _databaseRepository.getUsers(event.userId, 'Male').listen((users) {
+      print('$users');
       add(
         UpdateHome(users: users),
       );
@@ -51,7 +49,11 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
     UpdateHome event,
     Emitter<SwipeState> emit,
   ) {
-    emit(SwipeLoaded(users: event.users));
+    if (event.users != null) {
+      emit(SwipeLoaded(users: event.users!));
+    } else {
+      emit(SwipeError());
+    }
   }
 
   void _onSwipeLeft(
@@ -60,13 +62,14 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
   ) {
     if (state is SwipeLoaded) {
       final state = this.state as SwipeLoaded;
-      try {
-        emit(
-          SwipeLoaded(
-            users: List.from(state.users)..remove(event.user),
-          ),
-        );
-      } catch (_) {}
+
+      List<User> users = List.from(state.users)..remove(event.user);
+
+      if (users.isNotEmpty) {
+        emit(SwipeLoaded(users: users));
+      } else {
+        emit(SwipeError());
+      }
     }
   }
 
@@ -76,13 +79,13 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
   ) {
     if (state is SwipeLoaded) {
       final state = this.state as SwipeLoaded;
-      try {
-        emit(
-          SwipeLoaded(
-            users: List.from(state.users)..remove(event.user),
-          ),
-        );
-      } catch (_) {}
+      List<User> users = List.from(state.users)..remove(event.user);
+
+      if (users.isNotEmpty) {
+        emit(SwipeLoaded(users: users));
+      } else {
+        emit(SwipeError());
+      }
     }
   }
 

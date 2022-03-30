@@ -17,23 +17,17 @@ class DatabaseRepository extends BaseDatabaseRepository {
         .map((snap) => User.fromSnapshot(snap));
   }
 
-
-  User getUserDoc(String userId) {
-    return _firebaseFirestore.collection('users').doc(userId).get().then((snap) => User.fromSnapshot(snap));
-  }
-
-
   @override
-  Stream<List<User>> getUsers(String userId) {
-    User user = getUserDoc(userId);
-   
-      return _firebaseFirestore
-          .collection('users')
-          .where('gender', isNotEqualTo: user.gender)
-          .snapshots()
-          .map((snap) {
-        return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
-      });
+  Stream<List<User>> getUsers(
+    String userId,
+    String gender,
+  ) {
+    return _firebaseFirestore
+        .collection('users')
+        .where('gender', isNotEqualTo: gender)
+        .snapshots()
+        .map((snap) {
+      return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
     });
   }
 

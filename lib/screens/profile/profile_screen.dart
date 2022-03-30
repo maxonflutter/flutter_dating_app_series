@@ -13,7 +13,8 @@ class ProfileScreen extends StatelessWidget {
     return MaterialPageRoute(
         settings: RouteSettings(name: routeName),
         builder: (context) {
-          print(BlocProvider.of<AuthBloc>(context).state.status);
+          print(BlocProvider.of<AuthBloc>(context).state);
+
           return BlocProvider.of<AuthBloc>(context).state.status ==
                   AuthStatus.unauthenticated
               ? OnboardingScreen()
@@ -39,59 +40,34 @@ class ProfileScreen extends StatelessWidget {
               return Column(
                 children: [
                   SizedBox(height: 10),
-                  Stack(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height / 4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(3, 3),
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                            ),
+                  UserImage.medium(
+                    url: state.user.imageUrls[0],
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: LinearGradient(
+                          colors: [
+                            Theme.of(context).primaryColor.withOpacity(0.1),
+                            Theme.of(context).primaryColor.withOpacity(0.9),
                           ],
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: state.user.imageUrls.length > 0
-                                ? NetworkImage(state.user.imageUrls[0])
-                                : AssetImage('assets/placeholder-image.png')
-                                    as ImageProvider,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 40.0),
+                          child: Text(
+                            state.user.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(color: Colors.white),
                           ),
                         ),
                       ),
-                      Container(
-                        height: MediaQuery.of(context).size.height / 4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          gradient: LinearGradient(
-                            colors: [
-                              Theme.of(context).primaryColor.withOpacity(0.1),
-                              Theme.of(context).primaryColor.withOpacity(0.9),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 40.0),
-                            child: Text(
-                              state.user.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1!
-                                  .copyWith(
-                                    color: Colors.white,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -117,18 +93,11 @@ class ProfileScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 5.0),
-                                child: Container(
-                                  height: 125,
+                                child: UserImage.small(
                                   width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    border: Border.all(
-                                        color: Theme.of(context).primaryColor),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          state.user.imageUrls[index]),
-                                    ),
+                                  url: state.user.imageUrls[index],
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                               );
