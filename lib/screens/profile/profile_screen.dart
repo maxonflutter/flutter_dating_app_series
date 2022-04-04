@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dating_app/screens/login/login_screen.dart';
 
 import '/blocs/blocs.dart';
 import '/repositories/repositories.dart';
@@ -17,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
 
           return BlocProvider.of<AuthBloc>(context).state.status ==
                   AuthStatus.unauthenticated
-              ? OnboardingScreen()
+              ? LoginScreen()
               : ProfileScreen();
         });
   }

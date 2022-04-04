@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dating_app/screens/login/login_screen.dart';
 
 import '/models/models.dart';
 import '/screens/screens.dart';
@@ -13,6 +14,8 @@ class AppRouter {
         return HomeScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
       case UsersScreen.routeName:

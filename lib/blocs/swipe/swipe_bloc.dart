@@ -38,7 +38,7 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
     Emitter<SwipeState> emit,
   ) {
     _databaseRepository.getUsers(event.userId, 'Male').listen((users) {
-      print('$users');
+      // print('$users');
       add(
         UpdateHome(users: users),
       );
