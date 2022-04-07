@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dating_app/blocs/blocs.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CustomImageContainer extends StatelessWidget {
   const CustomImageContainer({
     Key? key,
+    this.imageUrl,
   }) : super(key: key);
+
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -14,35 +20,44 @@ class CustomImageContainer extends StatelessWidget {
         width: 100,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          border: Border(
-            bottom: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
-            top: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
-            left: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
-            right: BorderSide(
-              width: 1,
-              color: Theme.of(context).primaryColor,
-            ),
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).primaryColor,
           ),
         ),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: IconButton(
-            icon: Icon(
-              Icons.add_circle,
-              color: Theme.of(context).accentColor,
-            ),
-            onPressed: () {},
-          ),
-        ),
+        child: (imageUrl == null)
+            ? Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.add_circle,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  onPressed: () async {
+                    ImagePicker _picker = ImagePicker();
+                    final XFile? _image = await _picker.pickImage(
+                      source: ImageSource.gallery,
+                      imageQuality: 50,
+                    );
+
+                    if (_image == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('No image was selected.')));
+                    }
+
+                    if (_image != null) {
+                      print('Uploading ...');
+                      BlocProvider.of<OnboardingBloc>(context).add(
+                        UpdateUserImages(image: _image),
+                      );
+                    }
+                  },
+                ),
+              )
+            : Image.network(
+                imageUrl!,
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/cubits/signup/signup_cubit.dart';
-import 'package:flutter_dating_app/repositories/auth/auth_repository.dart';
-import 'package:flutter_dating_app/widgets/widgets.dart';
 
+import '/widgets/widgets.dart';
 import 'onboarding_screens/screens.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -12,11 +9,7 @@ class OnboardingScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
-      builder: (context) => BlocProvider<SignupCubit>(
-        create: (_) =>
-            SignupCubit(authRepository: context.read<AuthRepository>()),
-        child: OnboardingScreen(),
-      ),
+      builder: (context) => OnboardingScreen(),
     );
   }
 
@@ -35,9 +28,7 @@ class OnboardingScreen extends StatelessWidget {
       length: tabs.length,
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context)!;
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {}
-        });
+
         return Scaffold(
           appBar: CustomAppBar(
             title: 'ARROW',

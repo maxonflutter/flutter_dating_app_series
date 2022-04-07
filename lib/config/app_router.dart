@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_dating_app/models/models.dart';
-import 'package:flutter_dating_app/screens/screens.dart';
 
-import '../screens/chat/chat_screen.dart';
-import '../screens/screens.dart';
+import '/models/models.dart';
+import '/screens/screens.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     print('The Route is: ${settings.name}');
 
+    print(settings);
     switch (settings.name) {
       case '/':
         return HomeScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
+      case SplashScreen.routeName:
+        return SplashScreen.route();
       case UsersScreen.routeName:
         return UsersScreen.route(user: settings.arguments as User);
       case OnboardingScreen.routeName:

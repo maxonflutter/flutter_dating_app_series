@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/blocs/swipe/swipe_bloc.dart';
-import 'package:flutter_dating_app/models/models.dart';
-import 'package:flutter_dating_app/widgets/widgets.dart';
+import 'package:flutter_dating_app/screens/screens.dart';
+import '/blocs/blocs.dart';
+import '/models/models.dart';
+import '/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = '/';
 
   static Route route() {
     return MaterialPageRoute(
-      settings: RouteSettings(name: routeName),
-      builder: (context) => HomeScreen(),
-    );
+        settings: RouteSettings(name: routeName),
+        builder: (context) {
+          print(BlocProvider.of<AuthBloc>(context).state.status);
+          return BlocProvider.of<AuthBloc>(context).state.status ==
+                  AuthStatus.unauthenticated
+              ? OnboardingScreen()
+              : HomeScreen();
+        });
   }
 
   Widget build(BuildContext context) {
