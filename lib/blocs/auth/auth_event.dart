@@ -13,7 +13,7 @@ class AuthUserChanged extends AuthEvent {
 
   const AuthUserChanged({
     required this.authUser,
-    required this.user,
+    this.user,
   });
 
   @override
