@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
+              databaseRepository: context.read<DatabaseRepository>(),
             ),
           ),
           BlocProvider<SignupCubit>(
@@ -63,7 +64,9 @@ class MyApp extends StatelessWidget {
               databaseRepository: context.read<DatabaseRepository>(),
             )..add(
                 LoadProfile(
-                    userId: BlocProvider.of<AuthBloc>(context).state.user!.uid),
+                  userId:
+                      BlocProvider.of<AuthBloc>(context).state.authUser!.uid,
+                ),
               ),
           ),
         ],
