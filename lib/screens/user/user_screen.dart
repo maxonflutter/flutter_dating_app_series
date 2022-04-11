@@ -64,35 +64,25 @@ class UsersScreen extends StatelessWidget {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              InkWell(
+                              ChoiceButton.small(
+                                color: Theme.of(context).accentColor,
+                                icon: Icons.clear_rounded,
                                 onTap: () {
                                   context.read<SwipeBloc>()
-                                    ..add(SwipeRight(user: state.users[0]));
-                                  Navigator.pop(context);
+                                    ..add(
+                                      SwipeRight(user: state.users[0]),
+                                    );
                                   print('Swiped Right');
                                 },
-                                child: ChoiceButton(
-                                  color: Theme.of(context).accentColor,
-                                  icon: Icons.clear_rounded,
-                                ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  context.read<SwipeBloc>()
-                                    ..add(SwipeRight(user: state.users[0]));
-                                  Navigator.pop(context);
-                                  print('Swiped Left');
-                                },
-                                child: ChoiceButton(
-                                  width: 80,
-                                  height: 80,
-                                  size: 30,
-                                  color: Colors.white,
-                                  hasGradient: true,
-                                  icon: Icons.favorite,
-                                ),
-                              ),
-                              ChoiceButton(
+                              ChoiceButton.large(onTap: () {
+                                context.read<SwipeBloc>()
+                                  ..add(
+                                    SwipeRight(user: state.users[0]),
+                                  );
+                                print('Swiped Left');
+                              }),
+                              ChoiceButton.small(
                                 color: Theme.of(context).primaryColor,
                                 icon: Icons.watch_later,
                               ),

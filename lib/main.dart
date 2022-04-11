@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => SwipeBloc(
-              authBloc: BlocProvider.of<AuthBloc>(context),
+              authBloc: context.read<AuthBloc>(),
               databaseRepository: context.read<DatabaseRepository>(),
             ),
           ),

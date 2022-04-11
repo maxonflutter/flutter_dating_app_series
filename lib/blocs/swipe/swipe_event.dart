@@ -8,10 +8,10 @@ abstract class SwipeEvent extends Equatable {
 }
 
 class LoadUsers extends SwipeEvent {
-  final User user;
+  final User? user;
 
   LoadUsers({
-    required this.user,
+    this.user,
   });
 
   @override
