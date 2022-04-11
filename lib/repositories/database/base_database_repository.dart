@@ -1,9 +1,9 @@
-import 'package:flutter_dating_app/models/user_model.dart';
+import '/models/models.dart';
 
 abstract class BaseDatabaseRepository {
   Stream<User> getUser(String userId);
   Stream<List<User>> getUsers(User user);
-  Future<List<User>> getUsersV2(User user);
+  Stream<List<Match>> getMatches(User user);
   Future<void> createUser(User user);
   Future<void> updateUser(User user);
   Future<void> updateUserPictures(User user, String imageName);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dating_app/blocs/match/match_bloc.dart';
 
 import 'blocs/blocs.dart';
 import 'cubits/cubits.dart';
@@ -57,17 +58,6 @@ class MyApp extends StatelessWidget {
               authBloc: context.read<AuthBloc>(),
               databaseRepository: context.read<DatabaseRepository>(),
             ),
-          ),
-          BlocProvider(
-            create: (context) => ProfileBloc(
-              authBloc: BlocProvider.of<AuthBloc>(context),
-              databaseRepository: context.read<DatabaseRepository>(),
-            )..add(
-                LoadProfile(
-                  userId:
-                      BlocProvider.of<AuthBloc>(context).state.authUser!.uid,
-                ),
-              ),
           ),
         ],
         child: MaterialApp(

@@ -12,15 +12,25 @@ class ProfileScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-        settings: RouteSettings(name: routeName),
-        builder: (context) {
-          print(BlocProvider.of<AuthBloc>(context).state);
+      settings: RouteSettings(name: routeName),
+      builder: (context) {
+        print(BlocProvider.of<AuthBloc>(context).state);
 
-          return BlocProvider.of<AuthBloc>(context).state.status ==
-                  AuthStatus.unauthenticated
-              ? LoginScreen()
-              : ProfileScreen();
-        });
+        return BlocProvider.of<AuthBloc>(context).state.status ==
+                AuthStatus.unauthenticated
+            ? LoginScreen()
+            : BlocProvider<ProfileBloc>(
+                create: (context) => ProfileBloc(
+                  authBloc: BlocProvider.of<AuthBloc>(context),
+                  databaseRepository: context.read<DatabaseRepository>(),
+                )..add(
+                    LoadProfile(
+                        userId: context.read<AuthBloc>().state.authUser!.uid),
+                  ),
+                child: ProfileScreen(),
+              );
+      },
+    );
   }
 
   @override
