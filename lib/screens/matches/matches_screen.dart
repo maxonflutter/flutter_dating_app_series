@@ -40,7 +40,8 @@ class MatchesScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          UserImageSmall(
+                          UserImage.small(
+                            margin: const EdgeInsets.only(top: 10, right: 10),
                             height: 70,
                             width: 70,
                             url:
@@ -70,7 +71,8 @@ class MatchesScreen extends StatelessWidget {
                       },
                       child: Row(
                         children: [
-                          UserImageSmall(
+                          UserImage.small(
+                            margin: const EdgeInsets.only(top: 10, right: 10),
                             height: 70,
                             width: 70,
                             url: activeMatches[index].matchedUser.imageUrls[0],

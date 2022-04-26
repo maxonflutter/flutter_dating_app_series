@@ -39,15 +39,10 @@ class UsersScreen extends StatelessWidget {
                   tag: 'user_card',
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 45.0),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 2,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(user.imageUrls[0]),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
+                    child: UserImage.medium(
+                      url: user.imageUrls[0],
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      width: double.infinity,
                     ),
                   ),
                 ),
@@ -72,8 +67,7 @@ class UsersScreen extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   context.read<SwipeBloc>()
-                                    ..add(
-                                        SwipeRightEvent(user: state.users[0]));
+                                    ..add(SwipeRight(user: state.users[0]));
                                   Navigator.pop(context);
                                   print('Swiped Right');
                                 },
@@ -85,8 +79,7 @@ class UsersScreen extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   context.read<SwipeBloc>()
-                                    ..add(
-                                        SwipeRightEvent(user: state.users[0]));
+                                    ..add(SwipeRight(user: state.users[0]));
                                   Navigator.pop(context);
                                   print('Swiped Left');
                                 },

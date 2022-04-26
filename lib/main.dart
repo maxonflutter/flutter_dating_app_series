@@ -8,7 +8,6 @@ import 'repositories/repositories.dart';
 import 'screens/screens.dart';
 import 'config/theme.dart';
 import 'config/app_router.dart';
-import 'models/models.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +22,13 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (context) => AuthRepository(),
-        )
+        ),
+        RepositoryProvider(
+          create: (context) => DatabaseRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => StorageRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -38,16 +43,24 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<OnboardingBloc>(
             create: (context) => OnboardingBloc(
-              databaseRepository: DatabaseRepository(),
-              storageRepository: StorageRepository(),
+              databaseRepository: context.read<DatabaseRepository>(),
+              storageRepository: context.read<StorageRepository>(),
             ),
           ),
           BlocProvider(
-            create: (context) => SwipeBloc()
-              ..add(
-                LoadUsersEvent(
-                  users: User.users.where((user) => user.id != 1).toList(),
-                ),
+              create: (context) => SwipeBloc(
+                    authBloc: BlocProvider.of<AuthBloc>(context),
+                    databaseRepository: context.read<DatabaseRepository>(),
+                  )
+              //BlocProvider.of<AuthBloc>(context).state.user!.uid),
+              ),
+          BlocProvider(
+            create: (context) => ProfileBloc(
+              authBloc: BlocProvider.of<AuthBloc>(context),
+              databaseRepository: context.read<DatabaseRepository>(),
+            )..add(
+                LoadProfile(
+                    userId: BlocProvider.of<AuthBloc>(context).state.user!.uid),
               ),
           ),
         ],
