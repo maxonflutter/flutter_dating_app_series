@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '/repositories/repositories.dart';
 import '/models/models.dart';
@@ -17,15 +18,10 @@ class DatabaseRepository extends BaseDatabaseRepository {
   }
 
   @override
-  Stream<List<User>> getUsers(User user) {
-    List<String> userFilter = List.from(user.swipeLeft!)
-      ..addAll(user.swipeRight!)
-      ..add(user.id!);
-
+  Stream<List<User>> getUsers(String gender) {
     return _firebaseFirestore
         .collection('users')
-        .where('gender', isEqualTo: 'Female')
-        .where(FieldPath.documentId, whereNotIn: userFilter)
+        .where('gender', isEqualTo: gender)
         .snapshots()
         .map((snap) {
       return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
@@ -33,16 +29,44 @@ class DatabaseRepository extends BaseDatabaseRepository {
   }
 
   @override
-  Stream<List<Match>> getMatches(User user) {
-    List<String> userFilter = List.from(user.matches!)..add('0');
+  Stream<List<User>> getUsersToSwipe(User user) {
+    String genderFilter = (user.gender == 'Female') ? 'Male' : 'Female';
 
-    return _firebaseFirestore
-        .collection('users')
-        .where(FieldPath.documentId, whereIn: userFilter)
-        .snapshots()
-        .map((snap) {
-      return snap.docs.map((doc) => Match.fromSnapshot(doc, user.id!)).toList();
-    });
+    return Rx.combineLatest2(
+      getUser(user.id!),
+      getUsers(genderFilter),
+      (
+        User currentUser,
+        List<User> users,
+      ) {
+        return users.where(
+          (user) {
+            return !(currentUser.swipeLeft!.contains(user.id) ||
+                currentUser.swipeRight!.contains(user.id) ||
+                currentUser.matches!.contains(user.id));
+          },
+        ).toList();
+      },
+    );
+  }
+
+  @override
+  Stream<List<Match>> getMatches(User user) {
+    String genderFilter = (user.gender == 'Female') ? 'Male' : 'Female';
+
+    return Rx.combineLatest2(
+      getUser(user.id!),
+      getUsers(genderFilter),
+      (
+        User currentUser,
+        List<User> users,
+      ) {
+        return users
+            .where((user) => currentUser.matches!.contains(user.id))
+            .map((user) => Match(userId: user.id!, matchedUser: user))
+            .toList();
+      },
+    );
   }
 
   @override
