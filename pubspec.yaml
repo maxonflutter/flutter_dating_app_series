@@ -40,6 +40,7 @@ dependencies:
   firebase_storage: ^10.0.3
   cloud_firestore: ^2.5.3
   uuid: ^3.0.5
+  rxdart: ^0.27.3
 
 
 
