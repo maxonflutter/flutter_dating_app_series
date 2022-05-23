@@ -49,7 +49,5 @@
 	<string>This app requires access to the camera.</string>
 
 
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 </dict>
 </plist>
