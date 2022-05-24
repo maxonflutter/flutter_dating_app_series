@@ -18,10 +18,10 @@ class DatabaseRepository extends BaseDatabaseRepository {
   }
 
   @override
-  Stream<List<User>> getUsers(String gender) {
+  Stream<List<User>> getUsers(User user) {
     return _firebaseFirestore
         .collection('users')
-        .where('gender', isEqualTo: gender)
+        .where('gender', isEqualTo: _selectGender(user))
         .snapshots()
         .map((snap) {
       return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
@@ -30,20 +30,24 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<List<User>> getUsersToSwipe(User user) {
-    String genderFilter = (user.gender == 'Female') ? 'Male' : 'Female';
-
     return Rx.combineLatest2(
       getUser(user.id!),
-      getUsers(genderFilter),
+      getUsers(user),
       (
         User currentUser,
         List<User> users,
       ) {
         return users.where(
           (user) {
-            return !(currentUser.swipeLeft!.contains(user.id) ||
-                currentUser.swipeRight!.contains(user.id) ||
-                currentUser.matches!.contains(user.id));
+            if (currentUser.swipeLeft!.contains(user.id)) {
+              return false;
+            } else if (currentUser.swipeRight!.contains(user.id)) {
+              return false;
+            } else if (currentUser.matches!.contains(user.id)) {
+              return false;
+            } else {
+              return true;
+            }
           },
         ).toList();
       },
@@ -52,11 +56,9 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<List<Match>> getMatches(User user) {
-    String genderFilter = (user.gender == 'Female') ? 'Male' : 'Female';
-
     return Rx.combineLatest2(
       getUser(user.id!),
-      getUsers(genderFilter),
+      getUsers(user),
       (
         User currentUser,
         List<User> users,
@@ -124,5 +126,9 @@ class DatabaseRepository extends BaseDatabaseRepository {
     return _firebaseFirestore.collection('users').doc(user.id).update({
       'imageUrls': FieldValue.arrayUnion([downloadUrl])
     });
+  }
+
+  _selectGender(User user) {
+    return (user.gender == 'Female') ? 'Male' : 'Female';
   }
 }
