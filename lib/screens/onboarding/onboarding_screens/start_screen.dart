@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
-class Start extends StatelessWidget {
+class StartTab extends StatelessWidget {
   final TabController tabController;
 
-  const Start({
+  const StartTab({
     Key? key,
     required this.tabController,
   }) : super(key: key);

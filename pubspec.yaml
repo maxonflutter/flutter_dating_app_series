@@ -41,7 +41,7 @@ dependencies:
   cloud_firestore: ^2.5.3
   uuid: ^3.0.5
   rxdart: ^0.27.3
-
+  google_maps_flutter: ^2.1.5
 
 
 dev_dependencies:

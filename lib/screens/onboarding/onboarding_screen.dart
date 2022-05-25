@@ -19,7 +19,7 @@ class OnboardingScreen extends StatelessWidget {
     Tab(text: 'Demographics'),
     Tab(text: 'Pictures'),
     Tab(text: 'Biography'),
-    Tab(text: 'Location')
+    Tab(text: 'Location'),
   ];
 
   @override
@@ -36,12 +36,12 @@ class OnboardingScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Start(tabController: tabController),
-              Email(tabController: tabController),
-              Demo(tabController: tabController),
-              Pictures(tabController: tabController),
-              Bio(tabController: tabController),
-              Location(tabController: tabController),
+              StartTab(tabController: tabController),
+              EmailTab(tabController: tabController),
+              DemoTab(tabController: tabController),
+              PicturesTab(tabController: tabController),
+              BioTab(tabController: tabController),
+              LocationTab(tabController: tabController),
             ],
           ),
         );

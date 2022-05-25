@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '/screens/screens.dart';
+import '../screens.dart';
 import '/blocs/blocs.dart';
 import '/models/models.dart';
 import '/widgets/widgets.dart';

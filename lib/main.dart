@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/blocs/match/match_bloc.dart';
+import 'package:flutter_dating_app/repositories/location/location_repository.dart';
 
 import 'blocs/blocs.dart';
 import 'cubits/cubits.dart';
@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => StorageRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => LocationRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -51,6 +54,7 @@ class MyApp extends StatelessWidget {
             create: (context) => OnboardingBloc(
               databaseRepository: context.read<DatabaseRepository>(),
               storageRepository: context.read<StorageRepository>(),
+              locationRepository: context.read<LocationRepository>(),
             ),
           ),
           BlocProvider(

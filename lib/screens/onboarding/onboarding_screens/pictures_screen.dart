@@ -4,10 +4,10 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '/blocs/blocs.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
-class Pictures extends StatelessWidget {
+class PicturesTab extends StatelessWidget {
   final TabController tabController;
 
-  const Pictures({
+  const PicturesTab({
     Key? key,
     required this.tabController,
   }) : super(key: key);

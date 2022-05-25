@@ -3,6 +3,11 @@
    <application
         android:label="flutter_dating_app"
         android:icon="@mipmap/ic_launcher">
+        
+        <!-- TODO: Add your API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="YOUR-KEY-HERE"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

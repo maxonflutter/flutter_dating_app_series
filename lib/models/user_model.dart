@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
+import 'location_model.dart';
+
 class User extends Equatable {
   final String? id;
   final String name;
@@ -10,7 +12,7 @@ class User extends Equatable {
   final List<dynamic> interests;
   final String bio;
   final String jobTitle;
-  final String location;
+  final Location? location;
   final List<String>? swipeLeft;
   final List<String>? swipeRight;
   final List<String>? matches;
@@ -24,7 +26,7 @@ class User extends Equatable {
     required this.interests,
     required this.bio,
     required this.jobTitle,
-    required this.location,
+    this.location,
     this.swipeLeft,
     this.swipeRight,
     this.matches,
@@ -56,7 +58,7 @@ class User extends Equatable {
       interests: snap['interests'],
       bio: snap['bio'],
       jobTitle: snap['jobTitle'],
-      location: snap['location'],
+      location: Location.initialLocation,
       swipeLeft: (snap['swipeLeft'] as List)
           .map((swipeLeft) => swipeLeft as String)
           .toList(),
@@ -79,7 +81,7 @@ class User extends Equatable {
       'interests': interests,
       'bio': bio,
       'jobTitle': jobTitle,
-      'location': location,
+      'location': location!.toMap(),
       'swipeLeft': swipeLeft,
       'swipeRight': swipeRight,
       'matches': matches,
@@ -95,7 +97,7 @@ class User extends Equatable {
     List<dynamic>? interests,
     String? bio,
     String? jobTitle,
-    String? location,
+    Location? location,
     List<String>? swipeLeft,
     List<String>? swipeRight,
     List<String>? matches,
@@ -133,7 +135,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '2',
@@ -151,7 +157,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '3',
@@ -169,7 +179,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '4',
@@ -187,7 +201,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '5',
@@ -205,7 +223,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '6',
@@ -223,7 +245,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '7',
@@ -241,7 +267,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '8',
@@ -259,7 +289,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '9',
@@ -277,7 +311,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
     User(
       id: '10',
@@ -295,43 +333,11 @@ class User extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
-    ),
-    User(
-      id: '11',
-      name: 'Denise',
-      age: 35,
-      gender: 'Female',
-      imageUrls: [
-        'https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=615&q=80',
-        'https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=615&q=80',
-        'https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=615&q=80',
-        'https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=615&q=80',
-        'https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=615&q=80',
-      ],
-      jobTitle: 'Job Title Here',
-      interests: ['Music', 'Economics', 'Football'],
-      bio:
-          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
-    ),
-    User(
-      id: '12',
-      name: 'Elle',
-      age: 35,
-      gender: 'Female',
-      imageUrls: [
-        'https://images.unsplash.com/photo-1562003389-902303a38425?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80',
-        'https://images.unsplash.com/photo-1562003389-902303a38425?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80'
-            'https://images.unsplash.com/photo-1562003389-902303a38425?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80'
-            'https://images.unsplash.com/photo-1562003389-902303a38425?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80'
-            'https://images.unsplash.com/photo-1562003389-902303a38425?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80'
-      ],
-      jobTitle: 'Job Title Here',
-      interests: ['Music', 'Economics', 'Football'],
-      bio:
-          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-      location: 'Milan',
+      location: Location(
+        name: 'Milan',
+        lat: 10,
+        lon: 10,
+      ),
     ),
   ];
 }

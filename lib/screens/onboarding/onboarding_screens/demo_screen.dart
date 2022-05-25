@@ -5,10 +5,10 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '/blocs/blocs.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
-class Demo extends StatelessWidget {
+class DemoTab extends StatelessWidget {
   final TabController tabController;
 
-  const Demo({
+  const DemoTab({
     Key? key,
     required this.tabController,
   }) : super(key: key);

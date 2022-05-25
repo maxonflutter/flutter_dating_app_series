@@ -48,7 +48,7 @@ class CustomButton extends StatelessWidget {
               jobTitle: '',
               interests: [],
               bio: '',
-              location: '',
+              location: Location.initialLocation,
               matches: [],
               swipeLeft: [],
               swipeRight: [],

@@ -5,10 +5,10 @@ import 'package:step_progress_indicator/step_progress_indicator.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 import '/blocs/blocs.dart';
 
-class Bio extends StatelessWidget {
+class BioTab extends StatelessWidget {
   final TabController tabController;
 
-  const Bio({
+  const BioTab({
     Key? key,
     required this.tabController,
   }) : super(key: key);
