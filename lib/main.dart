@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/repositories/location/location_repository.dart';
+import 'repositories/location/location_repository.dart';
 
 import 'blocs/blocs.dart';
 import 'cubits/cubits.dart';
