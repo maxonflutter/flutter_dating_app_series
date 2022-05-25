@@ -79,11 +79,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
       );
 
       _databaseRepository.getUser(state.user.id!).listen((user) {
-        add(
-          UpdateUser(
-            user: state.user.copyWith(location: location),
-          ),
-        );
+        add(UpdateUser(user: state.user.copyWith(location: location)));
       });
     } else {
       emit(
