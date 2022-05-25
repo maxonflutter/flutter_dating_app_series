@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/blocs/blocs.dart';
+import '../blocs/blocs.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CustomImageContainer extends StatelessWidget {

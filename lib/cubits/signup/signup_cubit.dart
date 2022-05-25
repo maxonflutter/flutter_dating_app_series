@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_dating_app/repositories/auth/auth_repository.dart';
+import '../../repositories/auth/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 part 'signup_state.dart';

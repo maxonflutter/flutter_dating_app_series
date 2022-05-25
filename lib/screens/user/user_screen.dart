@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/blocs/swipe/swipe_bloc.dart';
-import 'package:flutter_dating_app/models/models.dart';
-import 'package:flutter_dating_app/widgets/widgets.dart';
+import '../../blocs/swipe/swipe_bloc.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class UsersScreen extends StatelessWidget {
   static const String routeName = '/users';

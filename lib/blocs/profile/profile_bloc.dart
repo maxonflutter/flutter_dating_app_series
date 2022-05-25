@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_dating_app/blocs/auth/auth_bloc.dart';
-import 'package:flutter_dating_app/models/models.dart';
-import 'package:flutter_dating_app/repositories/database/database_repository.dart';
+import '../auth/auth_bloc.dart';
+import '../../models/models.dart';
+import '../../repositories/database/database_repository.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';

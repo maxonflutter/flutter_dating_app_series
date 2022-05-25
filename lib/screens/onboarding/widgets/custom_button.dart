@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dating_app/blocs/blocs.dart';
-import 'package:flutter_dating_app/cubits/signup/signup_cubit.dart';
+import '../../../blocs/blocs.dart';
+import '../../../cubits/signup/signup_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/models/models.dart';
+import '../../../models/models.dart';
 
 class CustomButton extends StatelessWidget {
   final TabController tabController;

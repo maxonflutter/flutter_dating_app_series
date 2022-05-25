@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/repositories/repositories.dart';
-
-import '../../models/models.dart';
-import '../../widgets/widgets.dart';
 
 class ChatScreen extends StatelessWidget {
   static const String routeName = '/chat';

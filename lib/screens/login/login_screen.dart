@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/blocs/blocs.dart';
-import '/widgets/widgets.dart';
-import '/screens/screens.dart';
 import '/cubits/cubits.dart';
+import '/screens/screens.dart';
+import '/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = '/login';

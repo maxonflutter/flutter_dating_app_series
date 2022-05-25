@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dating_app/screens/login/login_screen.dart';
+import '../screens/login/login_screen.dart';
 
 import '/models/models.dart';
 import '/screens/screens.dart';
