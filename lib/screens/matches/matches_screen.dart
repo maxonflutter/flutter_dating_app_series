@@ -80,6 +80,20 @@ class MatchesScreen extends StatelessWidget {
                     beginColor: Theme.of(context).accentColor,
                     endColor: Theme.of(context).primaryColor,
                   ),
+                  TextButton(
+                    onPressed: () {
+                      RepositoryProvider.of<AuthRepository>(context).signOut();
+                    },
+                    child: Center(
+                      child: Text(
+                        'Sign Out',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );

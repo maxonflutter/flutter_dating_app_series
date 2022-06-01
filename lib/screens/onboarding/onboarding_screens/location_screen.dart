@@ -59,9 +59,10 @@ class LocationTab extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 500,
+                SizedBox(height: 10),
+                Expanded(
                   child: GoogleMap(
+                    myLocationEnabled: true,
                     myLocationButtonEnabled: false,
                     onMapCreated: (GoogleMapController controller) {
                       context.read<OnboardingBloc>().add(
@@ -77,6 +78,7 @@ class LocationTab extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 Column(
                   children: [
                     StepProgressIndicator(

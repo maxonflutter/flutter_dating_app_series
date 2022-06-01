@@ -42,6 +42,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     Emitter<OnboardingState> emit,
   ) {
     if (state is OnboardingLoaded) {
+      print(event.user);
       _databaseRepository.updateUser(event.user);
       emit(OnboardingLoaded(user: event.user));
     }

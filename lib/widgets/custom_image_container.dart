@@ -35,11 +35,13 @@ class CustomImageContainer extends StatelessWidget {
                   ),
                   onPressed: () async {
                     ImagePicker _picker = ImagePicker();
+                    print('Picker: $_picker');
+
                     final XFile? _image = await _picker.pickImage(
                       source: ImageSource.gallery,
-                      imageQuality: 50,
                     );
 
+                    print('Image: $_image');
                     if (_image == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('No image was selected.')));
