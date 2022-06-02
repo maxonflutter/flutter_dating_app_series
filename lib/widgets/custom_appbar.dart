@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dating_app/screens/screens.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final bool hasActions;
+  final List<IconData> actionsIcons;
+  final List<String> actionsRoutes;
 
   const CustomAppBar({
     Key? key,
     required this.title,
     this.hasActions = true,
+    this.actionsIcons = const [Icons.message, Icons.person],
+    this.actionsRoutes = const [
+      MatchesScreen.routeName,
+      ProfileScreen.routeName
+    ],
   }) : super(key: key);
 
   @override
@@ -49,17 +57,19 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: hasActions
           ? [
               IconButton(
-                  icon: Icon(Icons.message,
-                      color: Theme.of(context).primaryColor),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/matches');
-                  }),
+                icon: Icon(actionsIcons[0],
+                    color: Theme.of(context).primaryColor),
+                onPressed: () {
+                  Navigator.pushNamed(context, actionsRoutes[0]);
+                },
+              ),
               IconButton(
-                  icon:
-                      Icon(Icons.person, color: Theme.of(context).primaryColor),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
-                  })
+                icon: Icon(actionsIcons[1],
+                    color: Theme.of(context).primaryColor),
+                onPressed: () {
+                  Navigator.pushNamed(context, actionsRoutes[1]);
+                },
+              )
             ]
           : null,
     );
