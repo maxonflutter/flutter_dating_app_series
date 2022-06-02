@@ -255,15 +255,15 @@ class _GenderPreference extends StatelessWidget {
             Row(
               children: [
                 Checkbox(
-                  value: state.user.genderPreference!.contains('Man'),
+                  value: state.user.genderPreference!.contains('Male'),
                   onChanged: (value) {
-                    if (state.user.genderPreference!.contains('Man')) {
+                    if (state.user.genderPreference!.contains('Male')) {
                       context.read<ProfileBloc>().add(
                             UpdateUserProfile(
                               user: state.user.copyWith(
                                 genderPreference:
                                     List.from(state.user.genderPreference!)
-                                      ..remove('Man'),
+                                      ..remove('Male'),
                               ),
                             ),
                           );
@@ -276,7 +276,7 @@ class _GenderPreference extends StatelessWidget {
                               user: state.user.copyWith(
                                 genderPreference:
                                     List.from(state.user.genderPreference!)
-                                      ..add('Man'),
+                                      ..add('Male'),
                               ),
                             ),
                           );
@@ -296,15 +296,15 @@ class _GenderPreference extends StatelessWidget {
             Row(
               children: [
                 Checkbox(
-                  value: state.user.genderPreference!.contains('Woman'),
+                  value: state.user.genderPreference!.contains('Female'),
                   onChanged: (value) {
-                    if (state.user.genderPreference!.contains('Woman')) {
+                    if (state.user.genderPreference!.contains('Female')) {
                       context.read<ProfileBloc>().add(
                             UpdateUserProfile(
                               user: state.user.copyWith(
                                 genderPreference:
                                     List.from(state.user.genderPreference!)
-                                      ..remove('Woman'),
+                                      ..remove('Female'),
                               ),
                             ),
                           );
@@ -317,7 +317,7 @@ class _GenderPreference extends StatelessWidget {
                               user: state.user.copyWith(
                                 genderPreference:
                                     List.from(state.user.genderPreference!)
-                                      ..add('Woman'),
+                                      ..add('Female'),
                               ),
                             ),
                           );

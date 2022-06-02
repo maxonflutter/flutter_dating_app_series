@@ -66,7 +66,7 @@ class User extends Equatable {
 
     if (data != null) {
       userGenderPreference = (data['genderPreference'] == null)
-          ? ['Man']
+          ? ['Male']
           : (data['genderPreference'] as List)
               .map((gender) => gender as String)
               .toList();

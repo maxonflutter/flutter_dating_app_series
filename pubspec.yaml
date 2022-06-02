@@ -42,6 +42,7 @@ dependencies:
   uuid: ^3.0.5
   rxdart: ^0.27.3
   google_maps_flutter: ^2.1.5
+  geolocator: ^8.2.1
 
 
 dev_dependencies:
