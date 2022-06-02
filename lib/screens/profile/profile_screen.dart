@@ -145,10 +145,16 @@ class ProfileScreen extends StatelessWidget {
                           title: 'Age',
                           value: '${state.user.age}',
                           onChanged: (value) {
+                            if (value == null) {
+                              return;
+                            }
+                            if (value == '') {
+                              return;
+                            }
                             context.read<ProfileBloc>().add(
                                   UpdateUserProfile(
                                     user: state.user.copyWith(
-                                      age: int.parse(value!),
+                                      age: int.parse(value),
                                     ),
                                   ),
                                 );
