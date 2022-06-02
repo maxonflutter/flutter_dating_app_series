@@ -58,7 +58,7 @@ class User extends Equatable {
       interests: snap['interests'],
       bio: snap['bio'],
       jobTitle: snap['jobTitle'],
-      location: Location.initialLocation,
+      location: Location.fromJson(snap['location']),
       swipeLeft: (snap['swipeLeft'] as List)
           .map((swipeLeft) => swipeLeft as String)
           .toList(),

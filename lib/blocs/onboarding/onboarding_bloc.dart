@@ -26,7 +26,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     on<StartOnboarding>(_onStartOnboarding);
     on<UpdateUser>(_onUpdateUser);
     on<UpdateUserImages>(_onUpdateUserImages);
-    on<UpdateUserLocation>(_onUpdateUserLocation);
+    on<SetUserLocation>(_onSetUserLocation);
   }
 
   void _onStartOnboarding(
@@ -62,8 +62,8 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
     }
   }
 
-  void _onUpdateUserLocation(
-    UpdateUserLocation event,
+  void _onSetUserLocation(
+    SetUserLocation event,
     Emitter<OnboardingState> emit,
   ) async {
     final state = this.state as OnboardingLoaded;
@@ -75,7 +75,10 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
 
       state.controller!.animateCamera(
         CameraUpdate.newLatLng(
-          LatLng(location.lat, location.lon),
+          LatLng(
+            location.lat.toDouble(),
+            location.lon.toDouble(),
+          ),
         ),
       );
 

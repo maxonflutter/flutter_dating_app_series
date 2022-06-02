@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 class Location extends Equatable {
   final String placeId;
   final String name;
-  final double lat;
-  final double lon;
+  final num lat;
+  final num lon;
 
   const Location({
     this.placeId = '',
@@ -18,8 +18,8 @@ class Location extends Equatable {
   Location copyWith({
     String? placeId,
     String? name,
-    double? lat,
-    double? lon,
+    num? lat,
+    num? lon,
   }) {
     return Location(
       placeId: placeId ?? this.placeId,
@@ -33,11 +33,21 @@ class Location extends Equatable {
   List<Object?> get props => [placeId, name, lat, lon];
 
   factory Location.fromJson(Map<String, dynamic> json) {
-    return Location(
+    if (json.keys.contains('place_id')) {
+      return Location(
         placeId: json['place_id'],
         name: json['name'],
         lat: json['geometry']['location']['lat'],
-        lon: json['geometry']['location']['lng']);
+        lon: json['geometry']['location']['lng'],
+      );
+    } else {
+      return Location(
+        placeId: json['placeId'],
+        name: json['name'],
+        lat: json['lat'],
+        lon: json['lon'],
+      );
+    }
   }
 
   Map<String, dynamic> toMap() {

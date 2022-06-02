@@ -42,14 +42,14 @@ class LocationTab extends StatelessWidget {
                             state.user.location!.copyWith(name: value);
                         context
                             .read<OnboardingBloc>()
-                            .add(UpdateUserLocation(location: location));
+                            .add(SetUserLocation(location: location));
                       },
                       onFocusChanged: (hasFocus) {
                         if (hasFocus) {
                           return;
                         } else {
                           context.read<OnboardingBloc>().add(
-                                UpdateUserLocation(
+                                SetUserLocation(
                                   isUpdateComplete: true,
                                   location: state.user.location,
                                 ),
@@ -66,13 +66,13 @@ class LocationTab extends StatelessWidget {
                     myLocationButtonEnabled: false,
                     onMapCreated: (GoogleMapController controller) {
                       context.read<OnboardingBloc>().add(
-                            UpdateUserLocation(controller: controller),
+                            SetUserLocation(controller: controller),
                           );
                     },
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
-                        state.user.location!.lat,
-                        state.user.location!.lon,
+                        state.user.location!.lat.toDouble(),
+                        state.user.location!.lon.toDouble(),
                       ),
                       zoom: 10,
                     ),
