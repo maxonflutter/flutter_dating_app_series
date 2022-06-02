@@ -6,12 +6,7 @@ import '/screens/onboarding/widgets/widgets.dart';
 import '/blocs/blocs.dart';
 
 class BioTab extends StatelessWidget {
-  final TabController tabController;
-
-  const BioTab({
-    Key? key,
-    required this.tabController,
-  }) : super(key: key);
+  const BioTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

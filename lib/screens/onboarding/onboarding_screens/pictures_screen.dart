@@ -5,12 +5,7 @@ import '/blocs/blocs.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
 class PicturesTab extends StatelessWidget {
-  final TabController tabController;
-
-  const PicturesTab({
-    Key? key,
-    required this.tabController,
-  }) : super(key: key);
+  const PicturesTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

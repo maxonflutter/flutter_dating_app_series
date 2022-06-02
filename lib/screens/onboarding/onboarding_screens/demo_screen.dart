@@ -6,12 +6,7 @@ import '/blocs/blocs.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
 class DemoTab extends StatelessWidget {
-  final TabController tabController;
-
-  const DemoTab({
-    Key? key,
-    required this.tabController,
-  }) : super(key: key);
+  const DemoTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

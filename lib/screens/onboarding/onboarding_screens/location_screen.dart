@@ -8,12 +8,7 @@ import '/models/models.dart';
 import '/blocs/blocs.dart';
 
 class LocationTab extends StatelessWidget {
-  final TabController tabController;
-
-  const LocationTab({
-    Key? key,
-    required this.tabController,
-  }) : super(key: key);
+  const LocationTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

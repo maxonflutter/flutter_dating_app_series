@@ -2,16 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../blocs/blocs.dart';
-import '../../../models/models.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
 class StartTab extends StatelessWidget {
-  final TabController tabController;
-
-  const StartTab({
-    Key? key,
-    required this.tabController,
-  }) : super(key: key);
+  const StartTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
