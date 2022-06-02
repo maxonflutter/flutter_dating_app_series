@@ -38,11 +38,13 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
     LoadUsers event,
     Emitter<SwipeState> emit,
   ) {
-    User currentUser = _authBloc.state.user!;
-    _databaseRepository.getUsersToSwipe(currentUser).listen((users) {
-      print('Loading users: $users');
-      add(UpdateHome(users: users));
-    });
+    if (_authBloc.state.user != null) {
+      User currentUser = _authBloc.state.user!;
+      _databaseRepository.getUsersToSwipe(currentUser).listen((users) {
+        print('Loading users: $users');
+        add(UpdateHome(users: users));
+      });
+    }
   }
 
   void _onUpdateHome(
