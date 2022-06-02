@@ -43,7 +43,19 @@ class BioTab extends StatelessWidget {
                             );
                       },
                     ),
-                    SizedBox(height: 100),
+                    SizedBox(height: 50),
+                    CustomTextHeader(text: 'What do you do?'),
+                    CustomTextField(
+                      hint: 'ENTER YOUR JOB TITLE',
+                      onChanged: (value) {
+                        context.read<OnboardingBloc>().add(
+                              UpdateUser(
+                                user: state.user.copyWith(jobTitle: value),
+                              ),
+                            );
+                      },
+                    ),
+                    SizedBox(height: 50),
                     CustomTextHeader(text: 'What Do You Like?'),
                     Row(
                       children: [
@@ -73,7 +85,13 @@ class BioTab extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     CustomButton(
-                        tabController: tabController, text: 'NEXT STEP'),
+                      text: 'NEXT STEP',
+                      onPressed: () {
+                        context
+                            .read<OnboardingBloc>()
+                            .add(ContinueOnboarding(user: state.user));
+                      },
+                    ),
                   ],
                 ),
               ],

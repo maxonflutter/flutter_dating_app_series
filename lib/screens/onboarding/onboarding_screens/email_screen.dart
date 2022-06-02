@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
+import '../../../blocs/blocs.dart';
+import '../../../models/models.dart';
 import '/cubits/cubits.dart';
 import '/screens/onboarding/widgets/widgets.dart';
 
@@ -51,7 +53,21 @@ class EmailTab extends StatelessWidget {
                     unselectedColor: Theme.of(context).backgroundColor,
                   ),
                   SizedBox(height: 10),
-                  CustomButton(tabController: tabController, text: 'NEXT STEP'),
+                  CustomButton(
+                    text: 'NEXT STEP',
+                    onPressed: () async {
+                      await context.read<SignupCubit>().signUpWithCredentials();
+
+                      context.read<OnboardingBloc>().add(
+                            ContinueOnboarding(
+                              isSignup: true,
+                              user: User.empty.copyWith(
+                                id: context.read<SignupCubit>().state.user!.uid,
+                              ),
+                            ),
+                          );
+                    },
+                  ),
                 ],
               ),
             ],

@@ -63,7 +63,13 @@ class PicturesTab extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     CustomButton(
-                        tabController: tabController, text: 'NEXT STEP'),
+                      text: 'NEXT STEP',
+                      onPressed: () {
+                        context
+                            .read<OnboardingBloc>()
+                            .add(ContinueOnboarding(user: state.user));
+                      },
+                    ),
                   ],
                 ),
               ],

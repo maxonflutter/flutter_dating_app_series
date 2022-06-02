@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../repositories/repositories.dart';
 import '../screens.dart';
 import '/blocs/blocs.dart';
 import '/models/models.dart';
@@ -17,7 +18,13 @@ class HomeScreen extends StatelessWidget {
         return BlocProvider.of<AuthBloc>(context).state.status ==
                 AuthStatus.unauthenticated
             ? LoginScreen()
-            : HomeScreen();
+            : BlocProvider<SwipeBloc>(
+                create: (context) => SwipeBloc(
+                  authBloc: context.read<AuthBloc>(),
+                  databaseRepository: context.read<DatabaseRepository>(),
+                )..add(LoadUsers()),
+                child: HomeScreen(),
+              );
       },
     );
   }
@@ -34,7 +41,6 @@ class HomeScreen extends StatelessWidget {
           );
         }
         if (state is SwipeLoaded) {
-          print('Build SwipeLoaded');
           return SwipeLoadedHomeScreen(state: state);
         }
         if (state is SwipeMatched) {
@@ -144,11 +150,7 @@ class SwipeMatchedHomeScreen extends StatelessWidget {
               text: 'BACK TO SWIPING',
               textColor: Colors.white,
               onPressed: () {
-                context.read<SwipeBloc>().add(
-                      LoadUsers(
-                        user: context.read<AuthBloc>().state.user,
-                      ),
-                    );
+                context.read<SwipeBloc>().add(LoadUsers());
               },
               beginColor: Theme.of(context).accentColor,
               endColor: Theme.of(context).primaryColor,
@@ -171,6 +173,7 @@ class SwipeLoadedHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userCount = state.users.length;
+
     return Scaffold(
       appBar: CustomAppBar(title: 'DISCOVER'),
       body: Column(

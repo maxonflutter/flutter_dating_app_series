@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../repositories/auth/auth_repository.dart';
 import '/screens/screens.dart';
 import '/blocs/blocs.dart';
 
@@ -57,6 +58,20 @@ class SplashScreen extends StatelessWidget {
                   Text(
                     'ARROW',
                     style: Theme.of(context).textTheme.headline1,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      RepositoryProvider.of<AuthRepository>(context).signOut();
+                    },
+                    child: Center(
+                      child: Text(
+                        'Sign Out',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5!
+                            .copyWith(color: Theme.of(context).primaryColor),
+                      ),
+                    ),
                   ),
                 ],
               ),

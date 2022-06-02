@@ -38,6 +38,24 @@ class User extends Equatable {
     this.distancePreference,
   });
 
+  static const User empty = User(
+    id: '',
+    name: '',
+    age: 0,
+    gender: '',
+    imageUrls: [],
+    jobTitle: '',
+    interests: [],
+    bio: '',
+    location: Location.initialLocation,
+    swipeLeft: [],
+    swipeRight: [],
+    matches: [],
+    genderPreference: ['Male', 'Female'],
+    ageRangePreference: [18, 50],
+    distancePreference: 10,
+  );
+
   @override
   List<Object?> get props => [
         id,

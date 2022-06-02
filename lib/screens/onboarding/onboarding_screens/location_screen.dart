@@ -88,7 +88,12 @@ class LocationTab extends StatelessWidget {
                       unselectedColor: Theme.of(context).backgroundColor,
                     ),
                     SizedBox(height: 10),
-                    CustomButton(tabController: tabController, text: 'DONE'),
+                    CustomButton(
+                      text: 'DONE',
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/');
+                      },
+                    ),
                   ],
                 ),
               ],

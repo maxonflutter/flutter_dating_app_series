@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'repositories/location/location_repository.dart';
 
 import 'blocs/blocs.dart';
 import 'cubits/cubits.dart';
@@ -49,19 +48,6 @@ class MyApp extends StatelessWidget {
           BlocProvider<LoginCubit>(
             create: (context) =>
                 LoginCubit(authRepository: context.read<AuthRepository>()),
-          ),
-          BlocProvider<OnboardingBloc>(
-            create: (context) => OnboardingBloc(
-              databaseRepository: context.read<DatabaseRepository>(),
-              storageRepository: context.read<StorageRepository>(),
-              locationRepository: context.read<LocationRepository>(),
-            ),
-          ),
-          BlocProvider(
-            create: (context) => SwipeBloc(
-              authBloc: context.read<AuthBloc>(),
-              databaseRepository: context.read<DatabaseRepository>(),
-            ),
           ),
         ],
         child: MaterialApp(

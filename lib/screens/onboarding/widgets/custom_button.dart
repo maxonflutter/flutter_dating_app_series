@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../blocs/blocs.dart';
-import '../../../cubits/signup/signup_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../models/models.dart';
 
 class CustomButton extends StatelessWidget {
-  final TabController tabController;
   final String text;
-  final void function;
+  final void Function()? onPressed;
 
   CustomButton({
     Key? key,
-    required this.tabController,
     required this.text,
-    this.function,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -29,40 +23,7 @@ class CustomButton extends StatelessWidget {
         ),
       ),
       child: ElevatedButton(
-        onPressed: () async {
-          if (tabController.index == 5) {
-            Navigator.pushNamed(context, '/');
-          } else {
-            tabController.animateTo(tabController.index + 1);
-          }
-
-          if (tabController.index == 2) {
-            await context.read<SignupCubit>().signUpWithCredentials();
-
-            User user = User(
-              id: context.read<SignupCubit>().state.user!.uid,
-              name: '',
-              age: 0,
-              gender: '',
-              imageUrls: [],
-              jobTitle: '',
-              interests: [],
-              bio: '',
-              location: Location.initialLocation,
-              matches: [],
-              swipeLeft: [],
-              swipeRight: [],
-              distancePreference: 10,
-              ageRangePreference: [18, 50],
-              genderPreference: [],
-            );
-            context.read<OnboardingBloc>().add(
-                  StartOnboarding(
-                    user: user,
-                  ),
-                );
-          }
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           primary: Colors.transparent,
           elevation: 0,

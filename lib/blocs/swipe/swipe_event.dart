@@ -7,16 +7,7 @@ abstract class SwipeEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadUsers extends SwipeEvent {
-  final User? user;
-
-  LoadUsers({
-    this.user,
-  });
-
-  @override
-  List<Object?> get props => [user];
-}
+class LoadUsers extends SwipeEvent {}
 
 class UpdateHome extends SwipeEvent {
   final List<User>? users;
