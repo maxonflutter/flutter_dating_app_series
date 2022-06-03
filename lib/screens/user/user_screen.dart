@@ -16,9 +16,7 @@ class UsersScreen extends StatelessWidget {
 
   final User user;
 
-  const UsersScreen({
-    required this.user,
-  });
+  const UsersScreen({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -53,45 +51,32 @@ class UsersScreen extends StatelessWidget {
                       vertical: 8.0,
                       horizontal: 60,
                     ),
-                    child: BlocBuilder<SwipeBloc, SwipeState>(
-                      builder: (context, state) {
-                        if (state is SwipeLoading) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (state is SwipeLoaded) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ChoiceButton.small(
-                                color: Theme.of(context).accentColor,
-                                icon: Icons.clear_rounded,
-                                onTap: () {
-                                  context.read<SwipeBloc>()
-                                    ..add(
-                                      SwipeRight(user: state.users[0]),
-                                    );
-                                  print('Swiped Right');
-                                },
-                              ),
-                              ChoiceButton.large(onTap: () {
-                                context.read<SwipeBloc>()
-                                  ..add(
-                                    SwipeRight(user: state.users[0]),
-                                  );
-                                print('Swiped Left');
-                              }),
-                              ChoiceButton.small(
-                                color: Theme.of(context).primaryColor,
-                                icon: Icons.watch_later,
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Text('Something went wrong.');
-                        }
-                      },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ChoiceButton.small(
+                          color: Theme.of(context).accentColor,
+                          icon: Icons.clear_rounded,
+                          onTap: () {
+                            BlocProvider.of<SwipeBloc>(context)
+                              ..add(
+                                SwipeLeft(user: user),
+                              );
+                            print('Swiped Left');
+                          },
+                        ),
+                        ChoiceButton.large(onTap: () {
+                          BlocProvider.of<SwipeBloc>(context)
+                            ..add(
+                              SwipeRight(user: user),
+                            );
+                          print('Swiped Right');
+                        }),
+                        ChoiceButton.small(
+                          color: Theme.of(context).primaryColor,
+                          icon: Icons.watch_later,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -104,8 +89,10 @@ class UsersScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${user.name}, ${user.age}',
-                    style: Theme.of(context).textTheme.headline2),
+                Text(
+                  '${user.name}, ${user.age}',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
                 Text(
                   user.jobTitle,
                   style: Theme.of(context)
@@ -114,14 +101,20 @@ class UsersScreen extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.normal),
                 ),
                 SizedBox(height: 15),
-                Text('About', style: Theme.of(context).textTheme.headline3),
+                Text(
+                  'About',
+                  style: Theme.of(context).textTheme.headline3,
+                ),
                 Text(user.bio,
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
                         .copyWith(height: 2)),
                 SizedBox(height: 15),
-                Text('Interests', style: Theme.of(context).textTheme.headline3),
+                Text(
+                  'Interests',
+                  style: Theme.of(context).textTheme.headline3,
+                ),
                 Row(
                   children: user.interests
                       .map((interest) => Container(

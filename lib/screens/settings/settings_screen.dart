@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/repositories/location/location_repository.dart';
+import '../../repositories/location/location_repository.dart';
 
 import '/blocs/blocs.dart';
 import '/repositories/repositories.dart';

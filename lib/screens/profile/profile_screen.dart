@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/repositories/location/location_repository.dart';
-import 'package:flutter_dating_app/screens/onboarding/widgets/widgets.dart';
+import '../../repositories/location/location_repository.dart';
+import '../onboarding/widgets/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../models/location_model.dart';

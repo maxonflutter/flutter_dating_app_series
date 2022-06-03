@@ -50,11 +50,14 @@ class UserImage extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         image: DecorationImage(
-            fit: BoxFit.cover,
-            image: (url == null)
-                ? AssetImage('assets/placeholder-image.png') as ImageProvider
-                : NetworkImage(url!)),
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          fit: BoxFit.cover,
+          image: (url == null)
+              ? AssetImage('assets/placeholder-image.png') as ImageProvider
+              : NetworkImage(url!),
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.0),
+        ),
         border: border,
         boxShadow: boxShadow,
         color: Theme.of(context).primaryColor,
@@ -63,14 +66,3 @@ class UserImage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-// const [
-//         const BoxShadow(
-//           color: Colors.grey.withOpacity(0.5),
-//           spreadRadius: 4,
-//           blurRadius: 4,
-//           offset: Offset(3, 3),
-//         )

@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import '../../models/models.dart';
+
 import '/repositories/repositories.dart';
+import '../../models/models.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

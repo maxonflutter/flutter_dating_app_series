@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../repositories/auth/auth_repository.dart';
-import '/screens/screens.dart';
 import '/blocs/blocs.dart';
+import '/screens/screens.dart';
+import '../../repositories/auth/auth_repository.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = '/splash';

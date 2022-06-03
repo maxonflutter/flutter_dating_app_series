@@ -12,9 +12,10 @@ class CustomTextHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: Theme.of(context).textTheme.headline1!.copyWith(
-            fontWeight: FontWeight.normal,
-          ),
+      style: Theme.of(context)
+          .textTheme
+          .headline1!
+          .copyWith(fontWeight: FontWeight.normal),
     );
   }
 }

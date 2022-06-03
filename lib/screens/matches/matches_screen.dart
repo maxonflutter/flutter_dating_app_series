@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../models/match_model.dart';
 
 import '../../blocs/blocs.dart';
+import '../../models/match_model.dart';
 import '../../repositories/repositories.dart';
 import '../../widgets/widgets.dart';
 
