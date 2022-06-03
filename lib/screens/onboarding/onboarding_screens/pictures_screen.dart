@@ -48,25 +48,19 @@ class PicturesTab extends StatelessWidget {
                     )
                   : AddUserImage(
                       onPressed: () async {
-                        ImagePicker _picker = ImagePicker();
-                        print('Picker: $_picker');
-
-                        final XFile? _image = await _picker.pickImage(
+                        final XFile? image = await ImagePicker().pickImage(
                             source: ImageSource.gallery, imageQuality: 50);
 
-                        print('Image: $_image');
-                        if (_image == null) {
+                        if (image == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('No image was selected.'),
                             ),
                           );
-                        }
-
-                        if (_image != null) {
+                        } else {
                           print('Uploading ...');
                           BlocProvider.of<OnboardingBloc>(context).add(
-                            UpdateUserImages(image: _image),
+                            UpdateUserImages(image: image),
                           );
                         }
                       },
