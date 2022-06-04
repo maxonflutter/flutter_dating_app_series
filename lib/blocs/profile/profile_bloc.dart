@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../repositories/location/location_repository.dart';
-import '../auth/auth_bloc.dart';
+
 import '../../models/models.dart';
 import '../../repositories/database/database_repository.dart';
+import '../../repositories/location/location_repository.dart';
+import '../auth/auth_bloc.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';

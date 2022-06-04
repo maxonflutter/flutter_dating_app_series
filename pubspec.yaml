@@ -31,8 +31,6 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
-  carousel_slider: ^4.0.0-nullsafety.0
-  intl: ^0.17.0
   step_progress_indicator: ^1.0.0
   firebase_core: ^1.6.0
   firebase_auth: ^3.1.1
@@ -43,6 +41,8 @@ dependencies:
   rxdart: ^0.27.3
   google_maps_flutter: ^2.1.5
   geolocator: ^8.2.1
+  form_inputs:
+    path: packages/form_inputs
 
 
 dev_dependencies:

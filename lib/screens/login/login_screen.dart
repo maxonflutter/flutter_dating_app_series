@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 import '/blocs/blocs.dart';
 import '/cubits/cubits.dart';
@@ -34,19 +35,11 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            EmailInput(),
+            _EmailInput(),
             const SizedBox(height: 10),
-            PasswordInput(),
+            _PasswordInput(),
             const SizedBox(height: 10),
-            CustomElevatedButton(
-              text: 'LOGIN',
-              textColor: Theme.of(context).primaryColor,
-              onPressed: () {
-                context.read<LoginCubit>().logInWithCredentials();
-              },
-              beginColor: Colors.white,
-              endColor: Colors.white,
-            ),
+            _LoginButton(),
             const SizedBox(height: 10),
             CustomElevatedButton(
               text: 'SIGNUP',
@@ -65,7 +58,40 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class EmailInput extends StatelessWidget {
+class _LoginButton extends StatelessWidget {
+  const _LoginButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return state.status == FormzStatus.submissionInProgress
+            ? const CircularProgressIndicator()
+            : CustomElevatedButton(
+                text: 'LOGIN',
+                textColor: Theme.of(context).primaryColor,
+                onPressed: () {
+                  state.status == FormzStatus.valid
+                      ? context.read<LoginCubit>().logInWithCredentials()
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Check your email and password: ${state.status}'),
+                          ),
+                        );
+                },
+                beginColor: Colors.white,
+                endColor: Colors.white,
+              );
+      },
+    );
+  }
+}
+
+class _EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
@@ -75,14 +101,18 @@ class EmailInput extends StatelessWidget {
           onChanged: (email) {
             context.read<LoginCubit>().emailChanged(email);
           },
-          decoration: const InputDecoration(labelText: 'Email'),
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            labelText: 'Email',
+            errorText: state.email.invalid ? 'The email is invalid.' : null,
+          ),
         );
       },
     );
   }
 }
 
-class PasswordInput extends StatelessWidget {
+class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
@@ -92,7 +122,12 @@ class PasswordInput extends StatelessWidget {
           onChanged: (password) {
             context.read<LoginCubit>().passwordChanged(password);
           },
-          decoration: const InputDecoration(labelText: 'Password'),
+          decoration: InputDecoration(
+            labelText: 'Password',
+            errorText: state.password.invalid
+                ? 'The password must contain at least 8 characters.'
+                : null,
+          ),
           obscureText: true,
         );
       },

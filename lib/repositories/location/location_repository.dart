@@ -1,5 +1,6 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+
+import 'package:http/http.dart' as http;
 
 import '../../models/models.dart';
 import 'base_location_repository.dart';
