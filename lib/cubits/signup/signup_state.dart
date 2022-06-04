@@ -1,41 +1,34 @@
 part of 'signup_cubit.dart';
 
-enum SignupStatus { initial, submitting, success, error }
-
 class SignupState extends Equatable {
-  final String email;
-  final String password;
-  final SignupStatus status;
+  final Email email;
+  final Password password;
+  final FormzStatus status;
   final auth.User? user;
 
-  bool get isFormValid => email.isNotEmpty && password.isNotEmpty;
-
   const SignupState({
-    required this.email,
-    required this.password,
-    required this.status,
+    this.email = const Email.pure(),
+    this.password = const Password.pure(),
+    this.status = FormzStatus.pure,
     this.user,
   });
 
   factory SignupState.initial() {
     return SignupState(
-      email: '',
-      password: '',
-      status: SignupStatus.initial,
+      email: const Email.pure(),
+      password: const Password.pure(),
+      status: FormzStatus.pure,
       user: null,
     );
   }
 
   @override
-  bool get stringify => true;
-
-  @override
   List<Object?> get props => [email, password, status, user];
 
   SignupState copyWith({
-    String? email,
-    String? password,
-    SignupStatus? status,
+    Email? email,
+    Password? password,
+    FormzStatus? status,
     auth.User? user,
   }) {
     return SignupState(
