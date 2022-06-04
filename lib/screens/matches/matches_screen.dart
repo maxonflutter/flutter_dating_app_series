@@ -15,9 +15,7 @@ class MatchesScreen extends StatelessWidget {
       builder: (context) => BlocProvider<MatchBloc>(
         create: (context) => MatchBloc(
           databaseRepository: context.read<DatabaseRepository>(),
-        )..add(
-            LoadMatches(user: context.read<AuthBloc>().state.user!),
-          ),
+        )..add(LoadMatches(user: context.read<AuthBloc>().state.user!)),
         child: MatchesScreen(),
       ),
     );
@@ -30,9 +28,7 @@ class MatchesScreen extends StatelessWidget {
       body: BlocBuilder<MatchBloc, MatchState>(
         builder: (context, state) {
           if (state is MatchLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Center(child: CircularProgressIndicator());
           }
           if (state is MatchLoaded) {
             final inactiveMatches =
@@ -79,20 +75,6 @@ class MatchesScreen extends StatelessWidget {
                     },
                     beginColor: Theme.of(context).accentColor,
                     endColor: Theme.of(context).primaryColor,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      RepositoryProvider.of<AuthRepository>(context).signOut();
-                    },
-                    child: Center(
-                      child: Text(
-                        'Sign Out',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5!
-                            .copyWith(color: Theme.of(context).primaryColor),
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -144,12 +126,12 @@ class ChatsList extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    activeMatches[index].chat![0].messages[0].message,
+                    activeMatches[index].chat!.messages[0].message,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 5),
                   Text(
-                    activeMatches[index].chat![0].messages[0].timeString,
+                    activeMatches[index].chat!.messages[0].timeString,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -179,20 +161,26 @@ class MatchesList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: inactiveMatches.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-            child: Column(
-              children: [
-                UserImage.small(
-                  height: 70,
-                  width: 70,
-                  url: inactiveMatches[index].matchedUser.imageUrls[0],
-                ),
-                Text(
-                  inactiveMatches[index].matchedUser.name,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-              ],
+          return InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/chat',
+                  arguments: inactiveMatches[index]);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+              child: Column(
+                children: [
+                  UserImage.small(
+                    height: 70,
+                    width: 70,
+                    url: inactiveMatches[index].matchedUser.imageUrls[0],
+                  ),
+                  Text(
+                    inactiveMatches[index].matchedUser.name,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
             ),
           );
         },

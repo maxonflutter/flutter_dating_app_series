@@ -6,7 +6,7 @@ import 'models.dart';
 class Match extends Equatable {
   final String userId;
   final User matchedUser;
-  final List<Chat>? chat;
+  final Chat? chat;
 
   const Match({
     required this.userId,
@@ -28,7 +28,7 @@ class Match extends Equatable {
   Match copyWith({
     String? userId,
     User? matchedUser,
-    List<Chat>? chat,
+    Chat? chat,
   }) {
     return Match(
       userId: userId ?? this.userId,

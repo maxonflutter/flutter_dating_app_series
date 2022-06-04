@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/login/login_screen.dart';
 
 import '/models/models.dart';
 import '/screens/screens.dart';
@@ -28,8 +27,8 @@ class AppRouter {
         return ProfileScreen.route();
       case SettingsScreen.routeName:
         return SettingsScreen.route();
-      // case ChatScreen.routeName:
-      // return ChatScreen.route(userMatch: settings.arguments as UserMatch);
+      case ChatScreen.routeName:
+        return ChatScreen.route(match: settings.arguments as Match);
       default:
         return _errorRoute();
     }
