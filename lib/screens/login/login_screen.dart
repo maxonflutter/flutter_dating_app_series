@@ -30,28 +30,40 @@ class LoginScreen extends StatelessWidget {
         title: 'ARROW',
         hasActions: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _EmailInput(),
-            const SizedBox(height: 10),
-            _PasswordInput(),
-            const SizedBox(height: 10),
-            _LoginButton(),
-            const SizedBox(height: 10),
-            CustomElevatedButton(
-              text: 'SIGNUP',
-              textColor: Colors.white,
-              onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                OnboardingScreen.routeName,
-                ModalRoute.withName('/onboarding'),
+      body: BlocListener<LoginCubit, LoginState>(
+        listener: (context, state) {
+          if (state.status.isSubmissionFailure) {
+            ScaffoldMessenger.of(context)
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage ?? 'Authentication Failure'),
+                ),
+              );
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _EmailInput(),
+              const SizedBox(height: 10),
+              _PasswordInput(),
+              const SizedBox(height: 10),
+              _LoginButton(),
+              const SizedBox(height: 10),
+              CustomElevatedButton(
+                text: 'SIGNUP',
+                textColor: Colors.white,
+                onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  OnboardingScreen.routeName,
+                  ModalRoute.withName('/onboarding'),
+                ),
+                beginColor: Theme.of(context).accentColor,
+                endColor: Theme.of(context).primaryColor,
               ),
-              beginColor: Theme.of(context).accentColor,
-              endColor: Theme.of(context).primaryColor,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -29,10 +29,13 @@ class AuthRepository extends BaseAuthRepository {
     required String password,
   }) async {
     try {
+      // https://pub.dev/documentation/firebase_auth/latest/firebase_auth/FirebaseAuth/signInWithEmailAndPassword.html
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+    } on auth.FirebaseAuthException catch (error) {
+      throw Exception(error.message);
     } catch (_) {}
   }
 
