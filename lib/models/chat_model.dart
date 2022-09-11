@@ -14,19 +14,12 @@ class Chat extends Equatable {
   });
 
   factory Chat.fromJson(Map<String, dynamic> json, {String? id}) {
-    // List<User> users = (json['users'] as List)
-    //     .map((user) => user as String)
-    //     .toList()
-    //     .map((userId) {
-    //   return User.empty.copyWith(id: userId);
-    // }).toList();
+    List<String> userIds =
+        (json['userIds'] as List).map((userId) => userId as String).toList();
 
     List<Message> messages = (json['messages'] as List)
         .map((message) => Message.fromJson(message))
         .toList();
-
-    List<String> userIds =
-        (json['userIds'] as List).map((userId) => userId as String).toList();
 
     messages.sort((a, b) => b.dateTime.compareTo(a.dateTime));
 

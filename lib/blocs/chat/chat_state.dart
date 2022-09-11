@@ -11,13 +11,9 @@ class ChatLoading extends ChatState {}
 
 class ChatLoaded extends ChatState {
   final Chat chat;
-  final String? messageText;
 
-  const ChatLoaded({
-    required this.chat,
-    this.messageText = '',
-  });
+  const ChatLoaded({required this.chat});
 
   @override
-  List<Object?> get props => [chat, messageText];
+  List<Object?> get props => [chat];
 }

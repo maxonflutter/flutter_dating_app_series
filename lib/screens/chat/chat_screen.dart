@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/chat/chat_bloc.dart';
-import '../../repositories/repositories.dart';
-import '/models/models.dart';
 import '/blocs/blocs.dart';
+import '/repositories/repositories.dart';
+import '/models/models.dart';
 
 class ChatScreen extends StatelessWidget {
   static const String routeName = '/chat';
@@ -23,7 +22,7 @@ class ChatScreen extends StatelessWidget {
       builder: (context) => BlocProvider<ChatBloc>(
         create: (context) => ChatBloc(
           databaseRepository: context.read<DatabaseRepository>(),
-        )..add(ChatLoad(match.chat.id)),
+        )..add(LoadChat(match.chat.id)),
         child: ChatScreen(match: match),
       ),
     );
@@ -49,8 +48,6 @@ class ChatScreen extends StatelessWidget {
                   itemCount: state.chat.messages.length,
                   itemBuilder: (context, index) {
                     List<Message> messages = state.chat.messages;
-                    print(context.read<AuthBloc>().state.authUser!.uid);
-
                     return ListTile(
                       title: _Message(
                         message: messages[index].message,
@@ -101,10 +98,10 @@ class _MessageInput extends StatelessWidget {
                 print(match);
                 context.read<ChatBloc>()
                   ..add(
-                    ChatAddMessage(
+                    AddMessage(
                       userId: match.userId,
-                      matchedUserId: match.matchedUser.id!,
-                      text: controller.text,
+                      matchUserId: match.matchUser.id!,
+                      message: controller.text,
                     ),
                   );
                 controller.clear();
@@ -195,10 +192,10 @@ class _CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         children: [
           CircleAvatar(
             radius: 15,
-            backgroundImage: NetworkImage(match.matchedUser.imageUrls[0]),
+            backgroundImage: NetworkImage(match.matchUser.imageUrls[0]),
           ),
           Text(
-            match.matchedUser.name,
+            match.matchUser.name,
             style: Theme.of(context).textTheme.headline4,
           )
         ],

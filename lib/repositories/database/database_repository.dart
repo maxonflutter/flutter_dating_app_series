@@ -10,7 +10,6 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<User> getUser(String userId) {
-    print('Getting user images from DB');
     return _firebaseFirestore
         .collection('users')
         .doc(userId)
@@ -19,15 +18,41 @@ class DatabaseRepository extends BaseDatabaseRepository {
   }
 
   @override
+  Stream<Chat> getChat(String chatId) {
+    return _firebaseFirestore
+        .collection('chats')
+        .doc(chatId)
+        .snapshots()
+        .map((doc) {
+      return Chat.fromJson(
+        doc.data() as Map<String, dynamic>,
+        id: doc.id,
+      );
+    });
+  }
+
+  @override
   Stream<List<User>> getUsers(User user) {
     return _firebaseFirestore
         .collection('users')
-        // .where('gender', isEqualTo: _selectGender(user))
         .where('gender', whereIn: _selectGender(user))
         .snapshots()
         .map((snap) {
       print(snap);
       return snap.docs.map((doc) => User.fromSnapshot(doc)).toList();
+    });
+  }
+
+  @override
+  Stream<List<Chat>> getChats(String userId) {
+    return _firebaseFirestore
+        .collection('chats')
+        .where('userIds', arrayContains: userId)
+        .snapshots()
+        .map((snap) {
+      return snap.docs
+          .map((doc) => Chat.fromJson(doc.data(), id: doc.id))
+          .toList();
     });
   }
 
@@ -60,7 +85,6 @@ class DatabaseRepository extends BaseDatabaseRepository {
             if (isMatch) return false;
             if (!isWithinAgeRange) return false;
             if (!isWithinDistance) return false;
-
             return true;
           },
         ).toList();
@@ -75,58 +99,35 @@ class DatabaseRepository extends BaseDatabaseRepository {
       getChats(user.id!),
       getUsers(user),
       (
-        User currentUser,
-        List<Chat> currentUserChats,
-        List<User> users,
+        User user,
+        List<Chat> userChats,
+        List<User> otherUsers,
       ) {
-        print('Current user chats: $currentUserChats');
-        return users
-            .where((user) {
-              List<String> matches = currentUser.matches!
-                  .map((match) => match['matchId'] as String)
-                  .toList();
-              return matches.contains(user.id);
-            })
-            .map(
-              (user) => Match(
-                  userId: currentUser.id!,
-                  matchedUser: user,
-                  chat: currentUserChats.where((chat) {
-                    return (chat.userIds.contains(user.id) &
-                        chat.userIds.contains(currentUser.id));
-                  }).first),
-            )
-            .toList();
+        return otherUsers.where(
+          (otherUser) {
+            List<String> matches = user.matches!
+                .map((match) => match['matchId'] as String)
+                .toList();
+            return matches.contains(otherUser.id);
+          },
+        ).map(
+          (matchUser) {
+            Chat chat = userChats.where(
+              (chat) {
+                return chat.userIds.contains(matchUser.id) &
+                    chat.userIds.contains(user.id);
+              },
+            ).first;
+
+            return Match(
+              userId: user.id!,
+              matchUser: matchUser,
+              chat: chat,
+            );
+          },
+        ).toList();
       },
     );
-  }
-
-  @override
-  Stream<List<Chat>> getChats(String userId) {
-    print(userId);
-    return _firebaseFirestore
-        .collection('chats')
-        .where('userIds', arrayContains: userId)
-        .snapshots()
-        .map((snap) {
-      return snap.docs
-          .map((doc) => Chat.fromJson(doc.data(), id: doc.id))
-          .toList();
-    });
-  }
-
-  @override
-  Stream<Chat> getChat(String chatId) {
-    return _firebaseFirestore
-        .collection('chats')
-        .doc(chatId)
-        .snapshots()
-        .map((doc) {
-      return Chat.fromJson(
-        doc.data() as Map<String, dynamic>,
-        id: doc.id,
-      );
-    });
   }
 
   @override

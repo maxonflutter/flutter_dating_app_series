@@ -18,58 +18,53 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required DatabaseRepository databaseRepository,
   })  : _databaseRepository = databaseRepository,
         super(ChatLoading()) {
-    on<ChatLoad>(_onChatLoad);
-    on<ChatAddMessage>(_onChatAddMessage);
-    on<ChatUpdate>(_onChatUpdate);
+    on<LoadChat>(_onLoadChat);
+    on<UpdateChat>(_onUpdateChat);
+    on<AddMessage>(_onAddMessage);
 
     if (state is ChatLoaded) {
       _chatSubscription = _databaseRepository
           .getChat((state as ChatLoaded).chat.id)
           .listen((chat) {
-        add(ChatUpdate(chat: chat));
+        add(UpdateChat(chat: chat));
       });
     }
   }
 
-  void _onChatLoad(
-    ChatLoad event,
+  void _onLoadChat(
+    LoadChat event,
     Emitter<ChatState> emit,
   ) {
-    print('Chat is Loading');
     _chatSubscription =
         _databaseRepository.getChat(event.chatId!).listen((chat) {
-      add(ChatUpdate(chat: chat));
+      add(UpdateChat(chat: chat));
     });
   }
 
-  void _onChatAddMessage(
-    ChatAddMessage event,
+  void _onAddMessage(
+    AddMessage event,
     Emitter<ChatState> emit,
   ) {
     if (state is ChatLoaded) {
       final state = this.state as ChatLoaded;
-      print(event.text);
 
       final Message message = Message(
         senderId: event.userId,
-        receiverId: event.matchedUserId,
-        message: event.text,
+        receiverId: event.matchUserId,
+        message: event.message,
         dateTime: DateTime.now(),
         timeString: DateFormat("HH:mm").format(DateTime.now()),
       );
-
-      print(message);
 
       _databaseRepository.addMessage(state.chat.id, message);
       emit(ChatLoaded(chat: state.chat));
     }
   }
 
-  void _onChatUpdate(
-    ChatUpdate event,
+  void _onUpdateChat(
+    UpdateChat event,
     Emitter<ChatState> emit,
   ) {
-    print(event.chat);
     emit(ChatLoaded(chat: event.chat));
   }
 

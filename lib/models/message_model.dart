@@ -16,10 +16,6 @@ class Message extends Equatable {
     required this.timeString,
   });
 
-  @override
-  List<Object?> get props =>
-      [senderId, receiverId, message, dateTime, timeString];
-
   factory Message.fromJson(Map<String, dynamic> json, {String? id}) {
     return Message(
       senderId: id ?? json['senderId'],
@@ -38,4 +34,13 @@ class Message extends Equatable {
       'dateTime': dateTime,
     };
   }
+
+  @override
+  List<Object?> get props => [
+        senderId,
+        receiverId,
+        message,
+        dateTime,
+        timeString,
+      ];
 }

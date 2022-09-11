@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dating_app/screens/chat/chat_screen.dart';
 
-import '../../blocs/blocs.dart';
-import '../../models/match_model.dart';
-import '../../repositories/repositories.dart';
-import '../../widgets/widgets.dart';
+import '/blocs/blocs.dart';
+import '/models/models.dart';
+import '/repositories/repositories.dart';
+import '/widgets/widgets.dart';
+import '/screens/screens.dart';
 
 class MatchesScreen extends StatelessWidget {
   static const String routeName = '/matches';
@@ -32,7 +32,6 @@ class MatchesScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
           if (state is MatchLoaded) {
-            // print('Matches: ${state.matches}');
             final inactiveMatches = state.matches
                 .where((match) => match.chat.messages.length == 0)
                 .toList();
@@ -50,7 +49,12 @@ class MatchesScreen extends StatelessWidget {
                       'Your Likes',
                       style: Theme.of(context).textTheme.headline4,
                     ),
-                    MatchesList(inactiveMatches: inactiveMatches),
+                    inactiveMatches.length == 0
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Text('Go back to Swiping'),
+                          )
+                        : MatchesList(inactiveMatches: inactiveMatches),
                     Text(
                       'Your Chats',
                       style: Theme.of(context).textTheme.headline4,
@@ -122,13 +126,13 @@ class ChatsList extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 10, right: 10),
                 height: 70,
                 width: 70,
-                url: activeMatches[index].matchedUser.imageUrls[0],
+                url: activeMatches[index].matchUser.imageUrls[0],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    activeMatches[index].matchedUser.name,
+                    activeMatches[index].matchUser.name,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   SizedBox(height: 5),
@@ -170,7 +174,6 @@ class MatchesList extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              print('Inactive Match: ${inactiveMatches[index]}');
               Navigator.pushNamed(
                 context,
                 ChatScreen.routeName,
@@ -184,10 +187,10 @@ class MatchesList extends StatelessWidget {
                   UserImage.small(
                     height: 70,
                     width: 70,
-                    url: inactiveMatches[index].matchedUser.imageUrls[0],
+                    url: inactiveMatches[index].matchUser.imageUrls[0],
                   ),
                   Text(
-                    inactiveMatches[index].matchedUser.name,
+                    inactiveMatches[index].matchUser.name,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
