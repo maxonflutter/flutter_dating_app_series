@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 
 class Message extends Equatable {
-  final String id;
   final String senderId;
   final String receiverId;
   final String message;
@@ -10,7 +9,6 @@ class Message extends Equatable {
   final String timeString;
 
   Message({
-    required this.id,
     required this.senderId,
     required this.receiverId,
     required this.message,
@@ -19,22 +17,25 @@ class Message extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        senderId,
-        receiverId,
-        message,
-        dateTime,
-        timeString,
-      ];
+  List<Object?> get props =>
+      [senderId, receiverId, message, dateTime, timeString];
 
-  static List<Message> messages = [
-    Message(
-        id: '1',
-        senderId: '1',
-        receiverId: '2',
-        message: 'Hey, how are you?',
-        dateTime: DateTime.now(),
-        timeString: DateFormat('jm').format(DateTime.now())),
-  ];
+  factory Message.fromJson(Map<String, dynamic> json, {String? id}) {
+    return Message(
+      senderId: id ?? json['senderId'],
+      receiverId: json['receiverId'],
+      message: json['message'],
+      dateTime: json['dateTime'].toDate(),
+      timeString: DateFormat("HH:mm").format(json['dateTime'].toDate()),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'message': message,
+      'dateTime': dateTime,
+    };
+  }
 }

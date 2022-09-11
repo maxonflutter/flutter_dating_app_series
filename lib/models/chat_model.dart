@@ -4,30 +4,47 @@ import 'message_model.dart';
 
 class Chat extends Equatable {
   final String id;
-  final String userId;
-  final String matchedUserId;
+  final List<String> userIds;
   final List<Message> messages;
 
   Chat({
     required this.id,
-    required this.userId,
-    required this.matchedUserId,
+    required this.userIds,
     required this.messages,
   });
 
-  @override
-  List<Object?> get props => [id, userId, matchedUserId, messages];
+  factory Chat.fromJson(Map<String, dynamic> json, {String? id}) {
+    // List<User> users = (json['users'] as List)
+    //     .map((user) => user as String)
+    //     .toList()
+    //     .map((userId) {
+    //   return User.empty.copyWith(id: userId);
+    // }).toList();
 
-  static List<Chat> chats = [
-    Chat(
-      id: '1',
-      userId: '1',
-      matchedUserId: '2',
-      messages: Message.messages
-          .where((message) =>
-              (message.senderId == 1 && message.receiverId == 2) ||
-              (message.senderId == 2 && message.receiverId == 1))
-          .toList(),
-    ),
-  ];
+    List<Message> messages = (json['messages'] as List)
+        .map((message) => Message.fromJson(message))
+        .toList();
+
+    List<String> userIds =
+        (json['userIds'] as List).map((userId) => userId as String).toList();
+
+    messages.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+
+    return Chat(
+      id: id ?? json['id'],
+      userIds: userIds,
+      messages: messages,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userIds': userIds,
+      'messages': messages,
+    };
+  }
+
+  @override
+  List<Object?> get props => [id, userIds, messages];
 }
