@@ -39,3 +39,16 @@ class AddMessage extends ChatEvent {
   @override
   List<Object?> get props => [userId, matchUserId, message];
 }
+
+class DeleteChat extends ChatEvent {
+  final String userId;
+  final String matchUserId;
+
+  const DeleteChat({
+    required this.userId,
+    required this.matchUserId,
+  });
+
+  @override
+  List<Object?> get props => [userId, matchUserId];
+}

@@ -17,3 +17,7 @@ class ChatLoaded extends ChatState {
   @override
   List<Object?> get props => [chat];
 }
+
+class ChatDeleted extends ChatState {
+  const ChatDeleted();
+}

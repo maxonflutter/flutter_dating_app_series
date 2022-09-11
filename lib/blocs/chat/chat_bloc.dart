@@ -21,14 +21,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<LoadChat>(_onLoadChat);
     on<UpdateChat>(_onUpdateChat);
     on<AddMessage>(_onAddMessage);
-
-    if (state is ChatLoaded) {
-      _chatSubscription = _databaseRepository
-          .getChat((state as ChatLoaded).chat.id)
-          .listen((chat) {
-        add(UpdateChat(chat: chat));
-      });
-    }
+    on<DeleteChat>(_onDeleteChat);
   }
 
   void _onLoadChat(
@@ -66,6 +59,25 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     Emitter<ChatState> emit,
   ) {
     emit(ChatLoaded(chat: event.chat));
+  }
+
+  void _onDeleteChat(
+    DeleteChat event,
+    Emitter<ChatState> emit,
+  ) {
+    _chatSubscription?.cancel();
+
+    if (state is ChatLoaded) {
+      final state = this.state as ChatLoaded;
+
+      _databaseRepository.deleteMatch(
+        state.chat.id,
+        event.userId,
+        event.matchUserId,
+      );
+
+      emit(ChatDeleted());
+    }
   }
 
   @override

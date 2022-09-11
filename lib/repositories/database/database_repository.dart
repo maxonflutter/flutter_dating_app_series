@@ -221,6 +221,26 @@ class DatabaseRepository extends BaseDatabaseRepository {
     });
   }
 
+  @override
+  Future<void> deleteMatch(String chatId, String userId, String matchId) async {
+    // Remove the match from the user document
+    await _firebaseFirestore.collection('users').doc(userId).update({
+      'matches': FieldValue.arrayRemove([
+        {'matchId': matchId, 'chatId': chatId}
+      ])
+    });
+
+    // Remove the match from the user document
+    await _firebaseFirestore.collection('users').doc(matchId).update({
+      'matches': FieldValue.arrayRemove([
+        {'matchId': userId, 'chatId': chatId}
+      ])
+    });
+
+    // Delete the chat document
+    await _firebaseFirestore.collection('chats').doc(chatId).delete();
+  }
+
   _selectGender(User user) {
     if (user.genderPreference == null) {
       return ['Male', 'Female'];

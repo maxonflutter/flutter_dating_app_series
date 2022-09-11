@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../widgets/widgets.dart';
 import '/blocs/blocs.dart';
 import '/repositories/repositories.dart';
 import '/models/models.dart';
@@ -15,8 +16,6 @@ class ChatScreen extends StatelessWidget {
   }) : super(key: key);
 
   static Route route({required Match match}) {
-    print('route');
-    print(match.chat);
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
       builder: (context) => BlocProvider<ChatBloc>(
@@ -32,7 +31,12 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _CustomAppBar(match: match),
-      body: BlocBuilder<ChatBloc, ChatState>(
+      body: BlocConsumer<ChatBloc, ChatState>(
+        listener: (context, state) {
+          if (state is ChatDeleted) {
+            Navigator.pop(context);
+          }
+        },
         builder: (context, state) {
           if (state is ChatLoading) {
             return Center(
@@ -60,6 +64,29 @@ class ChatScreen extends StatelessWidget {
                 Spacer(),
                 _MessageInput(match: match)
               ],
+            );
+          }
+          if (state is ChatDeleted) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'The chat has been deleted.',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  const SizedBox(height: 20),
+                  CustomElevatedButton(
+                    text: 'BACK TO MATCHES',
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    beginColor: Theme.of(context).accentColor,
+                    endColor: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
             );
           } else {
             return Text('Something went wrong.');
@@ -95,7 +122,6 @@ class _MessageInput extends StatelessWidget {
             child: IconButton(
               icon: Icon(Icons.send_outlined),
               onPressed: () {
-                print(match);
                 context.read<ChatBloc>()
                   ..add(
                     AddMessage(
@@ -145,7 +171,6 @@ class _Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(isFromCurrentUser);
     AlignmentGeometry alignment =
         isFromCurrentUser ? Alignment.topRight : Alignment.topLeft;
     Color color = isFromCurrentUser
@@ -200,6 +225,39 @@ class _CustomAppBar extends StatelessWidget with PreferredSizeWidget {
           )
         ],
       ),
+      actions: [
+        IconButton(
+          onPressed: () {
+            showBottomSheet(
+              context: context,
+              builder: ((context) {
+                return Container(
+                  height: 100,
+                  child: Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: () {
+                        context.read<ChatBloc>()
+                          ..add(
+                            DeleteChat(
+                              userId: match.userId,
+                              matchUserId: match.matchUser.id!,
+                            ),
+                          );
+                        Navigator.pop(context);
+                      },
+                      child: Text('Delete Match'),
+                    ),
+                  ),
+                );
+              }),
+            );
+          },
+          icon: Icon(Icons.more_vert),
+        ),
+      ],
     );
   }
 

@@ -8,6 +8,7 @@ abstract class BaseDatabaseRepository {
   Stream<List<Match>> getMatches(User user);
   Stream<List<Chat>> getChats(String chatId);
   Future<void> createUser(User user);
+  Future<void> deleteMatch(String chatId, String userId, String matchId);
   Future<void> updateUser(User user);
   Future<void> updateUserPictures(User user, String imageName);
   Future<void> updateUserMatch(String userId, String matchId);
