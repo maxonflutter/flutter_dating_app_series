@@ -79,8 +79,7 @@ class MatchesScreen extends StatelessWidget {
                     text: 'BACK TO SWIPING',
                     textColor: Colors.white,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/splash');
-                      //or Navigator.of(context).pushNamed(HomeScreen.routeName);
+                      Navigator.pushNamed(context, HomeScreen.routeName);
                     },
                     beginColor: Theme.of(context).accentColor,
                     endColor: Theme.of(context).primaryColor,
