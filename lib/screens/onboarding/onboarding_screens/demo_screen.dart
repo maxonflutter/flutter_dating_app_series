@@ -25,6 +25,7 @@ class Demo extends StatelessWidget {
         if (state is OnboardingLoaded) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50),
+            child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
@@ -99,6 +100,7 @@ class Demo extends StatelessWidget {
                 ),
               ],
             ),
+              ),
           );
         } else {
           return Text('Something went wrong.');
